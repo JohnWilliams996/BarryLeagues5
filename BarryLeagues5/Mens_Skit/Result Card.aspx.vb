@@ -57,16 +57,7 @@ Partial Class Mens_Skit_ResultCard
             lblComments.Text = "Result Card Not yet Submitted"
         End If
     End Sub
-    Function get_fixture_week() As Integer
-        Dim strSQL As String
-        Dim myDataReader As oledbdatareader
 
-        strSQL = "Select week_number FROM mens_skit.vw_fixtures WHERE fixture_id=" & CompID
-        myDataReader = objGlobals.SQLSelect(strSQL)
-        While myDataReader.Read()
-            get_fixture_week = myDataReader.Item("week_number")
-        End While
-    End Function
     Sub show_comments()
         Dim strSQL As String
         Dim myDataReader As oledbdatareader

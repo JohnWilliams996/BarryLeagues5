@@ -336,7 +336,7 @@
                     <br />
                     <br />
                    <asp:Label ID="Label8" runat="server" BackColor="#1B1B1B" Font-Names="Arial" 
-                        ForeColor="#E4BB18" Font-Size="16px" Text="Champion of Champions - Saturday 14th June at the Park Hotel"> </asp:Label>
+                        ForeColor="#E4BB18" Font-Size="16px" Text="Champion of Champions - Friday 20th June at the Park Hotel"> </asp:Label>
                     <br />
                     <br />
                    <asp:Label ID="Label10" runat="server" BackColor="#1B1B1B" Font-Names="Arial" 

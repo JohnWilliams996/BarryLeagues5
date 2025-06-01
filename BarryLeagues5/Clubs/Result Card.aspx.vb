@@ -84,16 +84,6 @@ Partial Class Clubs_ResultCard
             lblComments.Text = myDataReader.Item("comments")
         End While
     End Sub
-    Function get_fixture_week() As Integer
-        Dim strSQL As String
-        Dim myDataReader As oledbdatareader
-
-        strSQL = "SELECT week_number FROM clubs.vw_fixtures WHERE fixture_id=" & CompID
-        myDataReader = objGlobals.SQLSelect(strSQL)
-        While myDataReader.Read()
-            get_fixture_week = myDataReader.Item("week_number")
-        End While
-    End Function
 
     Sub load_fixture_result()
         Dim strSQL As String
