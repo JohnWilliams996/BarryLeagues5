@@ -55,7 +55,7 @@ Partial Class Admin_Fixture_Result
     Private TotalAway As Integer = 0
     Private strSQL As String
     Private fixture_status As Integer
-    Private myDataReader As OleDbDataReader
+    Private myDataReader As oledbdatareader
 
 
     Protected Sub Page_Load(sender As Object, e As System.EventArgs) Handles Me.Load
@@ -439,7 +439,7 @@ Partial Class Admin_Fixture_Result
     End Sub
 
     Protected Sub create_tables_after(ByVal inDate As String)
-        Dim myDataReader2 As OleDbDataReader
+        Dim myDataReader2 As oledbdatareader
         Dim ThisTeam As String = ""
 
         Dim AfterPlayed As Integer = 0
@@ -773,7 +773,7 @@ Partial Class Admin_Fixture_Result
     End Sub
 
     Sub update_player_stats(inStoredProcedure As String)
-        Dim myDataReader2 As OleDbDataReader
+        Dim myDataReader2 As oledbdatareader
         Dim tempSeason As String
         tempSeason = objGlobals.get_current_season
         inStoredProcedure = "mens_skit." & inStoredProcedure
@@ -1118,7 +1118,7 @@ Partial Class Admin_Fixture_Result
     End Sub
 
     Sub load_totals()
-        If FixtureStatus = 2 Then
+        If FixtureStatus() = 2 Then
             dr = dt.NewRow
             dr("Home Player") = "PLAYERS TOTAL :"
             dr("Home Points") = home_rolls_total
@@ -1569,7 +1569,7 @@ Partial Class Admin_Fixture_Result
     End Sub
     Sub write_fixtures_FTP()
         Dim strSQL As String
-        Dim myDataReader As OleDbDataReader
+        Dim myDataReader As oledbdatareader
         Dim l_param_in_names(0) As String
         Dim l_param_in_values(0) As String
 
@@ -1583,7 +1583,7 @@ Partial Class Admin_Fixture_Result
     End Sub
     Sub colour_high_scores()
         Dim strSQL As String
-        Dim myDataReader As OleDbDataReader
+        Dim myDataReader As oledbdatareader
         Dim home_high_score As Integer
         Dim away_high_score As Integer
 

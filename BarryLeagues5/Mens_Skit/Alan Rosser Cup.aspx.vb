@@ -75,7 +75,7 @@ Partial Class League_Tables
         dt.Columns.Add(New DataColumn("Comp Name", GetType(System.String)))
 
         Dim strSQL As String
-        Dim myDataReader As OleDbDataReader
+        Dim myDataReader As oledbdatareader
 
         strSQL = "EXEC mens_skit.sp_get_options_AR"
         myDataReader = objGlobals.SQLSelect(strSQL)
@@ -91,7 +91,7 @@ Partial Class League_Tables
 
     Sub load_playoffs()
         Dim strSQL As String
-        Dim myDataReader As OleDbDataReader
+        Dim myDataReader As oledbdatareader
         Dim LastRound As Integer = 0
         Dim PrelimCount As Integer = 0
         dt = New DataTable
@@ -159,7 +159,7 @@ Partial Class League_Tables
 
     Sub load_group_table(ByRef inGroup As String, ByRef inGrid As GridView)
         Dim strSQL As String
-        Dim myDataReader As OleDbDataReader
+        Dim myDataReader As oledbdatareader
         dt = New DataTable
 
         'add header row
@@ -197,7 +197,7 @@ Partial Class League_Tables
 
     Sub load_group_fixtures(ByRef inGroup As String, ByRef inGrid As GridView, ByRef inVenue As Label)
         Dim strSQL As String
-        Dim myDataReader As OleDbDataReader
+        Dim myDataReader As oledbdatareader
         dt = New DataTable
 
         'add header row

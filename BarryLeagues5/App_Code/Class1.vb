@@ -1,10 +1,11 @@
 Imports Microsoft.VisualBasic
 Imports System.Data.OleDb
 Imports System.Data
+Imports System.Data.Sql
 Imports System.Configuration
 Imports System.Web
 Imports System
-
+Imports System.Data.SqlClient
 
 Public Class Globals
     Inherits System.Web.UI.Page
@@ -115,7 +116,7 @@ Public Class Globals
 
     Private Function ISmyIPAddress(inIPAddress As String) As Boolean
         ISmyIPAddress = False
-        'Dim myDataReader As OleDbDataReader
+        'Dim myDataReader As oledbdatareader
         'Dim strsql As String
         'strsql = "SELECT ip_address FROM " + CurrentSchema + "my_ip_addresses WHERE ip_address = '" & inIPAddress & "'"
         'myDataReader = SQLSelect(strsql)
@@ -192,24 +193,6 @@ Public Class Globals
         AddSuffix = Convert.ToString(num) + suff
     End Function
 
-    'Public Function ShortMonth(ByVal Month As String) As String
-    '    ShortMonth = Left()
-    '    Select Case Month
-    '        Case "January" : ShortMonth = ""
-    '        Case "February" : ShortMonth = ""
-    '        Case "March" : ShortMonth = ""
-    '        Case "April" : ShortMonth = ""
-    '        Case "" : ShortMonth = ""
-    '        Case "" : ShortMonth = ""
-    '        Case "" : ShortMonth = ""
-    '        Case "" : ShortMonth = ""
-    '        Case "" : ShortMonth = ""
-    '        Case "" : ShortMonth = ""
-    '        Case "" : ShortMonth = ""
-    '        Case "" : ShortMonth = ""
-    '    End Select
-    'End Function
-
     Public Function GetCurrentWeek() As Integer
         Dim strSQL As String
         Dim myDataReader As OleDbDataReader
@@ -270,16 +253,6 @@ Public Class Globals
 
     Public Function SQLSelect(ByRef inSQL As String) As OleDbDataReader
         'Open connection
-        Dim tmpUser As String = Replace(CurrentSchema, ".", "")
-        If LiveTestFlag() = 3 Then
-            'CurrentLogin = CurrentUser
-            CurrentLogin = "Jonty"
-        Else
-            'CurrentLogin = tmpUser + "_login"
-            CurrentLogin = "Internet_Fixtures"
-        End If
-
-
         objConnection = New OleDbConnection(getSQLConnectionString)
         objConnection.Open()
 
@@ -302,57 +275,29 @@ Public Class Globals
         objConnection = Nothing 'De-instantiating the Connection Object
     End Sub
 
-    Public Sub open_connection(ByVal inUser As String)
-    End Sub
-
     Public Function getSQLConnectionString() As String
-        If LiveTestFlag() = 3 Then
-            'CurrentLogin = CurrentUser
-            CurrentLogin = "Jonty"
-        Else
-            'CurrentLogin = tmpUser + "_login"
-            CurrentLogin = "Internet_Fixtures"
-        End If
-
         Dim SQLConnectionString As String = ""
         Select Case LiveTestFlag()
-            Case 3   ' WEBSITE - LIVE
-                SQLConnectionString = "Provider=SQLOLEDB;Data Source=N1NWPLSK12SQL-v03.shr.prod.ams1.secureserver.net;Initial Catalog=BarryLeagues_SQL;User ID=" + CurrentLogin + ";Password=Tallycam106%"
+            Case 3
+                'web (live) connection string
+                SQLConnectionString = getWebConnectionString()
             Case 1
-                'home LIVE connection string
-                SQLConnectionString = "Provider=SQLNCLI11;Data Source=" & Environment.MachineName & "\SQLEXPRESS;Initial Catalog=BarryLeagues_SQL;Trusted_Connection=Yes;"
+                'home connection string
+                SQLConnectionString = getLocalConnectionString()
         End Select
         'temp to point to LIVE DB
-        SQLConnectionString = "Provider=SQLOLEDB;Data Source=N1NWPLSK12SQL-v03.shr.prod.ams1.secureserver.net;Initial Catalog=BarryLeagues_SQL;User ID=Jonty;Password=Tallycam106%"
+        SQLConnectionString = getWebConnectionString()
         Return SQLConnectionString
     End Function
-
-    Public Function getDataSourceConnectionString() As String
-        Dim SQLConnectionString As String = ""
-        'If LiveTestFlag() = 3 Then
-        '    CurrentLogin = CurrentUser
-        'Else
-        '    CurrentLogin = Replace(CurrentSchema, ".", "_" + "login")
-        'End If
-
-        If LiveTestFlag() = 3 Then
-            'CurrentLogin = CurrentUser
-            CurrentLogin = "Jonty"
-        Else
-            'CurrentLogin = tmpUser + "_login"
-            CurrentLogin = "Internet_Fixtures"
-        End If
-
-        Select Case LiveTestFlag()
-            Case 3   ' WEBSITE - LIVE
-                SQLConnectionString = "Data Source=N1NWPLSK12SQL-v03.shr.prod.ams1.secureserver.net;Initial Catalog=BarryLeagues_SQL;User ID=" + CurrentLogin + ";Password=Tallycam106%"
-            Case 1   ' LIVE DB
-                'home LIVE connection string
-                SQLConnectionString = "Data Source=" & Environment.MachineName & "\SQLEXPRESS;Initial Catalog=BarryLeagues_SQL;Trusted_Connection=Yes;"
-        End Select
-        'temp to point to LIVE DB
-        SQLConnectionString = "Data Source=N1NWPLSK12SQL-v03.shr.prod.ams1.secureserver.net;Initial Catalog=BarryLeagues_SQL;User ID=Jonty;Password=Tallycam106%"
-        Return SQLConnectionString
+    Private Function getLocalConnectionString() As String
+        'Home (local) connection strings   
+        Dim LocalDBConnection As New OleDbConnection(ConfigurationManager.ConnectionStrings("LOCAL_ConnectionString").ConnectionString)
+        Return LocalDBConnection.ConnectionString
+    End Function
+    Private Function getWebConnectionString() As String
+        'setup Web (Live) and Home (local) connection strings   
+        Dim WEBConnection As New OleDbConnection(ConfigurationManager.ConnectionStrings("WEB_ConnectionString").ConnectionString)
+        Return WEBConnection.ConnectionString
     End Function
 
     Public Sub update_fixtures_combined(ByVal inSchema As String)

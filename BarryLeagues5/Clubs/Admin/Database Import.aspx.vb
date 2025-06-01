@@ -6,7 +6,7 @@ Partial Class Admin_Database_Import
     Private objGlobals As New Globals
 
     Protected Sub btnImport_Click(sender As Object, e As System.EventArgs) Handles btnImport.Click
-        Dim myDataReader As oledbdatareader    'MySqlDataReader
+        Dim myDataReader As OleDbDataReader    'MySqlDataReader
         Dim strSQL As String
         Dim txt As String = txtSQL.Text
         Dim Lines As String() = txt.Split(New [Char]() {ControlChars.Lf, ControlChars.Cr}, StringSplitOptions.RemoveEmptyEntries)

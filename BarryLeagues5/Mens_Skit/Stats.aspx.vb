@@ -143,7 +143,7 @@ Partial Class Stats
 
     Sub load_leagues()
         Dim strSQL As String
-        Dim myDataReader As OleDbDataReader
+        Dim myDataReader As oledbdatareader
         strSQL = "SELECT league FROM mens_skit.vw_leagues ORDER BY 1"
         myDataReader = objGlobals.SQLSelect(strSQL)
         gRow = 0
@@ -178,7 +178,7 @@ Partial Class Stats
 
     Sub load_teams()
         Dim strSQL As String
-        Dim myDataReader As OleDbDataReader
+        Dim myDataReader As oledbdatareader
         strSQL = "SELECT long_name FROM mens_skit.vw_teams WHERE league = '" & objGlobals.LeagueSelected & "' AND long_name <> 'BYE' ORDER BY 1"
         myDataReader = objGlobals.SQLSelect(strSQL)
         gRow = 0
@@ -220,7 +220,7 @@ Partial Class Stats
 
     Sub load_players()
         Dim strSQL As String
-        Dim myDataReader As OleDbDataReader
+        Dim myDataReader As oledbdatareader
         strSQL = "SELECT player FROM mens_skit.vw_players WHERE league = '" & objGlobals.LeagueSelected & "' AND team = '" & objGlobals.TeamSelected & "' AND player NOT LIKE 'A N OTHER%' ORDER BY 1"
         myDataReader = objGlobals.SQLSelect(strSQL)
         gRow = 0
@@ -265,7 +265,7 @@ Partial Class Stats
 
     Sub load_LeagueStatsTop10()
         Dim strSQL As String
-        Dim myDataReader As OleDbDataReader
+        Dim myDataReader As oledbdatareader
         strSQL = "SELECT last_six,league_pos,player,team,total_played,total_score,average "
         strSQL = strSQL & "FROM mens_skit.vw_player_stats "
         strSQL = strSQL & "WHERE league = '" & objGlobals.LeagueSelected & "'"
@@ -335,7 +335,7 @@ Partial Class Stats
 
     Sub load_LeagueStatsTopPlayer()
         Dim strSQL As String
-        Dim myDataReader As OleDbDataReader
+        Dim myDataReader As oledbdatareader
         strSQL = "SELECT last_six,league_pos,team,player,total_played,total_score,average "
         strSQL = strSQL & "FROM mens_skit.vw_player_stats "
         strSQL = strSQL & "WHERE league = '" & objGlobals.LeagueSelected & "'"
@@ -401,7 +401,7 @@ Partial Class Stats
 
     Sub load_LeagueStatsAll()
         Dim strSQL As String
-        Dim myDataReader As OleDbDataReader
+        Dim myDataReader As oledbdatareader
         strSQL = "SELECT last_six,league_pos,player,team,total_played,total_score,Average "
         strSQL = strSQL & "FROM mens_skit.vw_player_stats "
         strSQL = strSQL & "WHERE league = '" & objGlobals.LeagueSelected & "'"
@@ -771,7 +771,7 @@ Partial Class Stats
 
     Sub load_TeamStats()
         Dim strSQL As String
-        Dim myDataReader As OleDbDataReader
+        Dim myDataReader As oledbdatareader
         Dim SplitGames As Integer
 
         dt = New DataTable
@@ -1008,7 +1008,7 @@ Partial Class Stats
 
     Sub load_PositionStats()
         Dim strSQL As String
-        Dim myDataReader As OleDbDataReader
+        Dim myDataReader As oledbdatareader
         dt = New DataTable
         dt.Columns.Add(New DataColumn("Position", GetType(System.String)))
         dt.Columns.Add(New DataColumn("Played", GetType(System.String)))
@@ -1039,7 +1039,7 @@ Partial Class Stats
 
     Sub load_PlayerStats()
         Dim strSQL As String
-        Dim myDataReader As OleDbDataReader
+        Dim myDataReader As oledbdatareader
         dt = New DataTable
         dt.Columns.Add(New DataColumn("Week", GetType(System.String)))
         dt.Columns.Add(New DataColumn("Date", GetType(System.String)))
@@ -1067,7 +1067,7 @@ Partial Class Stats
         strSQL = strSQL & "away_team,away_player,away_points,away_thirties "
         strSQL = strSQL & "FROM mens_skit.vw_fixtures_detail "
         strSQL = strSQL & "WHERE league = '" & objGlobals.LeagueSelected & "'"
-            strSQL = strSQL & " AND (home_team='" & objGlobals.TeamSelected & "' AND home_player='" & objGlobals.PlayerSelected & "') "
+        strSQL = strSQL & " AND (home_team='" & objGlobals.TeamSelected & "' AND home_player='" & objGlobals.PlayerSelected & "') "
         strSQL = strSQL & " OR (League = '" & objGlobals.LeagueSelected & "' AND (away_team='" & objGlobals.TeamSelected & "' AND away_player='" & objGlobals.PlayerSelected & "'))"
         strSQL = strSQL & " ORDER BY week_number "
         myDataReader = objGlobals.SQLSelect(strSQL)
@@ -1172,7 +1172,7 @@ Partial Class Stats
 
     Sub get_match_result(inID As Integer, inHA As String)
         Dim strSQL As String
-        Dim myDataReader2 As OleDbDataReader
+        Dim myDataReader2 As oledbdatareader
         If inHA = "Home" Then
             strSQL = "SELECT REPLACE(home_result,' ',''),home_points,away_points,REPLACE(home_rolls_result,' ',''),REPLACE(away_rolls_result,' ',''),home_rolls_won,away_rolls_won FROM mens_skit.vw_fixtures WHERE fixture_id = " & inID
         Else
@@ -1224,7 +1224,7 @@ Partial Class Stats
     Function position_count(ByVal inLeague As String, ByVal inPosition As Integer) As Integer
         position_count = 1
         Dim strSQL As String = ""
-        Dim myDataReader As OleDbDataReader
+        Dim myDataReader As oledbdatareader
 
         strSQL = "SELECT COUNT(*) FROM mens_skit.vw_player_stats "
         strSQL = strSQL + "WHERE league = '" & inLeague & "' AND league_pos = " & inPosition
@@ -1237,7 +1237,7 @@ Partial Class Stats
 
     Sub load_results()
         Dim strSQL As String
-        Dim myDataReader As OleDbDataReader
+        Dim myDataReader As oledbdatareader
         Dim Wk As Integer
         Dim CurrentWeek As Integer = objGlobals.GetCurrentWeek
 

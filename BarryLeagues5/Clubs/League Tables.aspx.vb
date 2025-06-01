@@ -62,7 +62,7 @@ Partial Class League_Tables
             AwayPoints = myDataReader.Item("away_points")
             home_result = Replace(myDataReader.Item("home_result"), " ", "")
             FixtureLeague = myDataReader.Item("league")
-            FixtureDate = myDataReader.item("fixture_ymd")
+            FixtureDate = myDataReader.Item("fixture_ymd")
             FixtureHomeTeam = myDataReader.Item("home_team_name")
             FixtureAwayTeam = myDataReader.Item("away_team_name")
             HomePointsDeducted = myDataReader.Item("home_points_deducted")
@@ -75,7 +75,7 @@ Partial Class League_Tables
 
     Sub load_options(ByRef inGrid As GridView)
         Dim strSQL As String
-        Dim myDataReader As OleDbDataReader
+        Dim myDataReader As oledbdatareader
 
         strSQL = "SELECT long_name,home_night,venue FROM clubs.vw_teams WHERE league = '" & objGlobals.LeagueSelected & "' AND long_name <> 'BYE' ORDER BY long_name"
         myDataReader = objGlobals.SQLSelect(strSQL)

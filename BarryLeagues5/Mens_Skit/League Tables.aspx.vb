@@ -106,7 +106,7 @@ Partial Class League_Tables
 
     Sub load_options(ByRef inGrid As GridView)
         Dim strSQL As String
-        Dim myDataReader As OleDbDataReader
+        Dim myDataReader As oledbdatareader
 
         strSQL = "SELECT long_name,home_night,venue FROM mens_skit.vw_teams WHERE league = '" & objGlobals.LeagueSelected & "' AND long_name <> 'BYE' ORDER BY long_name"
         myDataReader = objGlobals.SQLSelect(strSQL)
@@ -142,7 +142,7 @@ Partial Class League_Tables
 
     Sub load_late_results(ByRef inGrid As GridView)
         Dim strSQL As String
-        Dim myDataReader As OleDbDataReader
+        Dim myDataReader As oledbdatareader
 
         dt = New DataTable
 
@@ -180,7 +180,7 @@ Partial Class League_Tables
 
     Sub load_recent_results(ByRef inGrid As GridView)
         Dim strSQL As String
-        Dim myDataReader As OleDbDataReader
+        Dim myDataReader As oledbdatareader
 
         dt = New DataTable
 
@@ -222,7 +222,7 @@ Partial Class League_Tables
 
     Sub load_high_scores(ByRef inGrid As GridView)
         Dim strSQL As String
-        Dim myDataReader As OleDbDataReader
+        Dim myDataReader As oledbdatareader
 
         dt = New DataTable
         gRow = 0
@@ -320,7 +320,7 @@ Partial Class League_Tables
 
     Sub load_table(ByRef inGrid As GridView, ByRef inSortBy As String)
         Dim strSQL As String
-        Dim myDataReader As OleDbDataReader
+        Dim myDataReader As oledbdatareader
         Dim SortColumn As Integer
         dt = New DataTable
 
@@ -496,7 +496,7 @@ Partial Class League_Tables
 
     Function get_team_last_6(ByVal inLeague As String, inTeam As String) As String
         Dim strSQL As String
-        Dim myDataReader As OleDbDataReader
+        Dim myDataReader As oledbdatareader
         Dim ResultCount As Integer = 6
         Dim Result(6) As String
         get_team_last_6 = ""

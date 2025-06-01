@@ -55,7 +55,7 @@ Partial Class Team_Fixtures
 
     Sub load_fixtures1(inGrid As GridView)
         Dim strSQL As String 
-        Dim myDataReader As OleDbDataReader
+        Dim myDataReader As oledbdatareader
         Dim Wk As Integer
         Dim CurrentWeek As Integer = objGlobals.GetCurrentWeek
         Dim home_venue As String = ""

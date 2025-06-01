@@ -101,7 +101,7 @@ Partial Class Admin_Default
     Sub export_fixtures()
         Dim SQLline As String
         Dim strSQL As String
-        Dim myDataReader As OleDbDataReader
+        Dim myDataReader As oledbdatareader
 
         SQLline = "DELETE FROM mens_skit.fixtures WHERE season IN " + SeasonString & vbCrLf
         txtSQL.Text = txtSQL.Text + SQLline
@@ -150,7 +150,7 @@ Partial Class Admin_Default
     Sub export_fixtures_detail()
         Dim SQLline As String
         Dim strSQL As String
-        Dim myDataReader As OleDbDataReader
+        Dim myDataReader As oledbdatareader
 
         SQLline = "DELETE FROM mens_skit.fixtures_detail WHERE season IN " + SeasonString & vbCrLf
         txtSQL.Text = txtSQL.Text + SQLline
@@ -181,7 +181,7 @@ Partial Class Admin_Default
     Sub export_tables()
         Dim SQLline As String
         Dim strSQL As String
-        Dim myDataReader As OleDbDataReader
+        Dim myDataReader As oledbdatareader
 
         SQLline = "DELETE FROM mens_skit.tables WHERE season IN " & SeasonString & vbCrLf
         txtSQL.Text = txtSQL.Text + SQLline
@@ -208,7 +208,7 @@ Partial Class Admin_Default
     Sub export_players()
         Dim SQLline As String
         Dim strSQL As String
-        Dim myDataReader As OleDbDataReader
+        Dim myDataReader As oledbdatareader
 
         SQLline = "DELETE FROM mens_skit.players WHERE season IN " & SeasonString & vbCrLf
         txtSQL.Text = txtSQL.Text + SQLline
@@ -233,7 +233,7 @@ Partial Class Admin_Default
     Sub export_draws()
         Dim SQLline As String
         Dim strSQL As String
-        Dim myDataReader As OleDbDataReader
+        Dim myDataReader As oledbdatareader
 
         SQLline = "DELETE FROM clubs.draws WHERE season IN " & SeasonString & vbCrLf
         txtSQL.Text = txtSQL.Text + SQLline
@@ -270,7 +270,7 @@ Partial Class Admin_Default
     Sub export_entries()
         Dim SQLline As String
         Dim strSQL As String
-        Dim myDataReader As OleDbDataReader
+        Dim myDataReader As oledbdatareader
 
         SQLline = "DELETE FROM clubs.entries WHERE season IN " & SeasonString & vbCrLf
         txtSQL.Text = txtSQL.Text + SQLline
@@ -295,7 +295,7 @@ Partial Class Admin_Default
     Sub export_tables_week()
         Dim SQLline As String
         Dim strSQL As String
-        Dim myDataReader As OleDbDataReader
+        Dim myDataReader As oledbdatareader
 
         SQLline = "DELETE FROM mens_skit.tables_week WHERE season IN " & SeasonString & vbCrLf
         txtSQL.Text = txtSQL.Text + SQLline
@@ -319,7 +319,7 @@ Partial Class Admin_Default
     Sub export_teams()
         Dim SQLline As String
         Dim strSQL As String
-        Dim myDataReader As OleDbDataReader
+        Dim myDataReader As oledbdatareader
 
         SQLline = "DELETE FROM mens_skit.teams WHERE season IN " & SeasonString & vbCrLf
         txtSQL.Text = txtSQL.Text + SQLline
@@ -350,7 +350,7 @@ Partial Class Admin_Default
     Sub export_player_stats()
         Dim SQLline As String
         Dim strSQL As String
-        Dim myDataReader As OleDbDataReader
+        Dim myDataReader As oledbdatareader
 
         SQLline = "DELETE FROM mens_skit.player_stats WHERE season IN " & SeasonString & vbCrLf
         txtSQL.Text = txtSQL.Text + SQLline
@@ -387,7 +387,7 @@ Partial Class Admin_Default
     Sub export_distribution()
         Dim SQLline As String
         Dim strSQL As String
-        Dim myDataReader As OleDbDataReader
+        Dim myDataReader As oledbdatareader
 
         SQLline = "DELETE FROM mens_skit.distribution" & vbCrLf
         txtSQL.Text = txtSQL.Text + SQLline
@@ -434,7 +434,7 @@ Partial Class Admin_Default
     Sub export_leagues()
         Dim SQLline As String
         Dim strSQL As String
-        Dim myDataReader As OleDbDataReader
+        Dim myDataReader As oledbdatareader
 
         SQLline = "DELETE FROM mens_skit.leagues WHERE season IN " & SeasonString & vbCrLf
         txtSQL.Text = txtSQL.Text + SQLline
@@ -453,7 +453,7 @@ Partial Class Admin_Default
     Sub export_my_ip_addresses()
         Dim SQLline As String
         Dim strSQL As String
-        Dim myDataReader As OleDbDataReader
+        Dim myDataReader As oledbdatareader
 
         SQLline = "DELETE FROM mens_skit.my_ip_addresses" & vbCrLf
         txtSQL.Text = txtSQL.Text + SQLline
@@ -471,7 +471,7 @@ Partial Class Admin_Default
     Sub export_seasons()
         Dim SQLline As String
         Dim strSQL As String
-        Dim myDataReader As OleDbDataReader
+        Dim myDataReader As oledbdatareader
 
         SQLline = "DELETE FROM mens_skit.seasons" & vbCrLf
         txtSQL.Text = txtSQL.Text + SQLline
@@ -490,7 +490,7 @@ Partial Class Admin_Default
     Sub export_stat_counter()
         Dim SQLline As String
         Dim strSQL As String
-        Dim myDataReader As OleDbDataReader
+        Dim myDataReader As oledbdatareader
 
         SQLline = "DELETE FROM mens_skit.stat_counter WHERE season IN " & SeasonString & vbCrLf
         txtSQL.Text = txtSQL.Text + SQLline
@@ -510,7 +510,7 @@ Partial Class Admin_Default
     Sub export_weeks()
         Dim SQLline As String
         Dim strSQL As String
-        Dim myDataReader As OleDbDataReader
+        Dim myDataReader As oledbdatareader
 
         SQLline = "DELETE FROM mens_skit.weeks WHERE season IN " & SeasonString & vbCrLf
         txtSQL.Text = txtSQL.Text + SQLline
@@ -529,7 +529,7 @@ Partial Class Admin_Default
     Sub export_current_comps()
         Dim SQLline As String
         Dim strSQL As String
-        Dim myDataReader As OleDbDataReader
+        Dim myDataReader As oledbdatareader
 
         SQLline = "DELETE FROM mens_skit.current_comps" & vbCrLf
         txtSQL.Text = txtSQL.Text + SQLline
@@ -557,7 +557,7 @@ Partial Class Admin_Default
         objGlobals.CurrentUser = "mens_skit_user"
         objGlobals.CurrentSchema = "mens_skit."
         Dim strSQL As String
-        Dim myDataReader As OleDbDataReader
+        Dim myDataReader As oledbdatareader
         Dim SeasonCount As Integer = -1
 
         If Not Request.Cookies("lastVisit") Is Nothing Then

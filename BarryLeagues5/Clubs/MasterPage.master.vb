@@ -67,7 +67,7 @@ Public Class MasterPage
         Dim dd As Integer
         Dim t_ime As String
         Dim strSQL As String
-        Dim myDataReader As OleDbDataReader
+        Dim myDataReader As oledbdatareader
 
         strSQL = "SELECT date_time_changed FROM clubs.last_changed"
         myDataReader = objGlobals.SQLSelect(strSQL)

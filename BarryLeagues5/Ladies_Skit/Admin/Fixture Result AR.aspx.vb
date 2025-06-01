@@ -55,7 +55,7 @@ Partial Class Admin_Fixture_Result
     Private strSQL As String
     Private FixtureStatus As Integer
     Private GroupName As String
-    Private myDataReader As OleDbDataReader
+    Private myDataReader As oledbdatareader
 
 
     Protected Sub Page_Load(sender As Object, e As System.EventArgs) Handles Me.Load

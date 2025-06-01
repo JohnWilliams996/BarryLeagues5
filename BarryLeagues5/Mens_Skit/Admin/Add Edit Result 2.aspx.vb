@@ -73,7 +73,7 @@ Partial Class Admin_Add_Edit_Result_2
 
     Protected Sub load_result()
         Dim strSQL As String
-        Dim myDataReader As OleDbDataReader
+        Dim myDataReader As oledbdatareader
         strSQL = "SELECT * FROM mens_skit.vw_fixtures WHERE fixture_id = " & fixture_id
         myDataReader = objGlobals.SQLSelect(strSQL)
         While myDataReader.Read()
@@ -106,7 +106,7 @@ Partial Class Admin_Add_Edit_Result_2
 
     Sub load_details()
         Dim strSQL As String
-        Dim myDataReader As OleDbDataReader
+        Dim myDataReader As oledbdatareader
         gRow = 0
 
         dt = New DataTable
@@ -256,7 +256,7 @@ Partial Class Admin_Add_Edit_Result_2
 
     Protected Sub btnRandom_Click(sender As Object, e As System.EventArgs) Handles btnRandom.Click
         Dim strSQL As String
-        Dim myDataReader As OleDbDataReader
+        Dim myDataReader As oledbdatareader
         Dim Button1 As New System.Web.UI.WebControls.Button
         Dim Button2 As New System.Web.UI.WebControls.Button
         Dim TXT1 As New System.Web.UI.WebControls.TextBox
@@ -322,7 +322,7 @@ Partial Class Admin_Add_Edit_Result_2
         Dim index As Integer = Convert.ToInt32(e.CommandArgument)
         Dim selectedRow As GridViewRow = gridResult.Rows(index)
         Dim strSQL As String
-        Dim myDataReader As OleDbDataReader
+        Dim myDataReader As oledbdatareader
 
         Dim Button1 As New System.Web.UI.WebControls.Button
         Dim Button2 As New System.Web.UI.WebControls.Button
@@ -469,7 +469,7 @@ Partial Class Admin_Add_Edit_Result_2
 
     Protected Sub update_grid_home(inMatch As Integer, inHomeScore As Double)
         Dim strSQL As String
-        Dim myDataReader As OleDbDataReader
+        Dim myDataReader As oledbdatareader
         Dim Button1 As New System.Web.UI.WebControls.Button
         Dim Button2 As New System.Web.UI.WebControls.Button
 
@@ -487,7 +487,7 @@ Partial Class Admin_Add_Edit_Result_2
 
     Protected Sub update_grid_away(inMatch As Integer, inAwayScore As Double)
         Dim strSQL As String
-        Dim myDataReader As OleDbDataReader
+        Dim myDataReader As oledbdatareader
         Dim Button3 As New System.Web.UI.WebControls.Button
         Dim Button4 As New System.Web.UI.WebControls.Button
 
@@ -555,7 +555,7 @@ Partial Class Admin_Add_Edit_Result_2
 
     Protected Sub btnAdd1_Click(sender As Object, e As System.EventArgs) Handles btnAdd1.Click
         Dim strSQL As String
-        Dim myDataReader As OleDbDataReader
+        Dim myDataReader As oledbdatareader
         Dim Button1 As New System.Web.UI.WebControls.Button
         Dim Button2 As New System.Web.UI.WebControls.Button
         txtAddHomePlayer.Text = txtAddHomePlayer.Text.ToUpper
@@ -609,7 +609,7 @@ Partial Class Admin_Add_Edit_Result_2
 
     Protected Sub btnAdd2_Click(sender As Object, e As System.EventArgs) Handles btnAdd2.Click
         Dim strSQL As String
-        Dim myDataReader As OleDbDataReader
+        Dim myDataReader As oledbdatareader
         Dim Button3 As New System.Web.UI.WebControls.Button
         Dim Button4 As New System.Web.UI.WebControls.Button
         txtAddAwayPlayer.Text = txtAddAwayPlayer.Text.ToUpper
@@ -661,7 +661,7 @@ Partial Class Admin_Add_Edit_Result_2
         Dim txt1 As New System.Web.UI.WebControls.TextBox
         Dim txt2 As New System.Web.UI.WebControls.TextBox
         Dim strSQL As String
-        Dim myDataReader As OleDbDataReader
+        Dim myDataReader As oledbdatareader
 
         're-update in case scores have been changed
         For iRow As Integer = 1 To 12
@@ -719,8 +719,8 @@ Partial Class Admin_Add_Edit_Result_2
 
     Sub update_player_stats(inStoredProcedure As String)
         Dim strSQL As String
-        Dim myDataReader As OleDbDataReader
-        Dim myDataReader2 As OleDbDataReader
+        Dim myDataReader As oledbdatareader
+        Dim myDataReader2 As oledbdatareader
         Dim tempSeason As String = objGlobals.get_current_season
         inStoredProcedure = "mens_skit." & inStoredProcedure
         'update the home team players
@@ -742,7 +742,7 @@ Partial Class Admin_Add_Edit_Result_2
 
     Sub update_header()
         Dim strSQL As String
-        Dim myDataReader As OleDbDataReader
+        Dim myDataReader As oledbdatareader
         Dim home_result As String
         Dim away_result As String
         home_result = Replace(HomeRollsWon, ".5", "½")
@@ -764,7 +764,7 @@ Partial Class Admin_Add_Edit_Result_2
 
     Sub update_fixture_details()
         Dim strSQL As String
-        Dim myDataReader As OleDbDataReader
+        Dim myDataReader As oledbdatareader
         strSQL = "DELETE FROM mens_skit.vw_fixtures_detail WHERE fixture_id = " & fixture_id
         myDataReader = objGlobals.SQLSelect(strSQL)
 

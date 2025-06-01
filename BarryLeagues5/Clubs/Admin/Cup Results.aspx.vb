@@ -47,7 +47,7 @@ Partial Class Admin_Cup_Results
 
     Sub load_comps()
         Dim strSQL As String
-        Dim myDataReader As OleDbDataReader
+        Dim myDataReader As oledbdatareader
         lbComps.ClearSelection()
         strSQL = "SELECT Competition FROM clubs.vw_Comps ORDER BY Competition"
         myDataReader = objGlobals.SQLSelect(strSQL)
@@ -60,7 +60,7 @@ Partial Class Admin_Cup_Results
 
     Sub check_prelim_max_round()
         Dim strSQL As String
-        Dim myDataReader As OleDbDataReader
+        Dim myDataReader As oledbdatareader
         Dim i As Integer
         MaxRound = 0
         RoundName(0) = ""
@@ -121,7 +121,7 @@ Partial Class Admin_Cup_Results
 
     Sub load_results()
         Dim strSQL As String
-        Dim myDataReader As OleDbDataReader
+        Dim myDataReader As oledbdatareader
         Dim LastRound As Integer = 0
         Dim PrelimCount As Integer = 0
         dt = New DataTable
@@ -478,7 +478,7 @@ Partial Class Admin_Cup_Results
 
     Sub write_cup_draws_FTP()
         Dim strSQL As String
-        Dim myDataReader As OleDbDataReader
+        Dim myDataReader As oledbdatareader
         Dim l_param_in_names(0) As String
         Dim l_param_in_values(0) As String
         l_param_in_names(0) = "@inComp"
@@ -492,7 +492,7 @@ Partial Class Admin_Cup_Results
 
     Sub update_home_win(ByVal MatchNo As Integer, ByVal WinningDrawNo As String, ByVal PrelimResult As Boolean, ByVal RoundNo As Integer)
         Dim strSQL As String = ""
-        Dim myDataReader As OleDbDataReader
+        Dim myDataReader As oledbdatareader
 
         If PrelimResult Then
             strSQL = "UPDATE clubs.prelim SET result = 'H' WHERE competition = '" & CompName & "' AND match_no = " & MatchNo
@@ -561,7 +561,7 @@ Partial Class Admin_Cup_Results
 
     Sub update_away_win(ByVal MatchNo As Integer, ByVal WinningDrawNo As String, ByVal PrelimResult As Boolean, ByVal RoundNo As Integer)
         Dim strSQL As String = ""
-        Dim myDataReader As OleDbDataReader
+        Dim myDataReader As oledbdatareader
 
         If PrelimResult Then
             strSQL = "UPDATE clubs.prelim SET result = 'A' WHERE competition = '" & CompName & "' AND match_no = " & MatchNo
@@ -638,7 +638,7 @@ Partial Class Admin_Cup_Results
 
     Sub update_not_played(ByVal MatchNo As Integer, ByVal PrelimResult As Boolean, ByVal RoundNo As Integer)
         Dim strSQL As String = ""
-        Dim myDataReader As OleDbDataReader
+        Dim myDataReader As oledbdatareader
 
         If PrelimResult Then
             strSQL = "UPDATE clubs.prelim SET result = 'N' WHERE competition = '" & CompName & "' AND match_no = " & MatchNo
@@ -723,8 +723,8 @@ Partial Class Admin_Cup_Results
         Dim NextMatchNo As String = ""
         Dim ThisRound As Integer
         Dim strSQL As String
-        Dim myDataReader As OleDbDataReader
-        Dim myDataReader2 As OleDbDataReader
+        Dim myDataReader As oledbdatareader
+        Dim myDataReader2 As oledbdatareader
 
         If PrelimResult Then
             strSQL = "UPDATE clubs.prelim SET result = 'X' WHERE competition = '" & CompName & "' AND match_no = " & MatchNo
@@ -855,7 +855,7 @@ Partial Class Admin_Cup_Results
         HomePlayerCount = 0
         AwayPlayerCount = 0
 
-        Dim myDataReader As OleDbDataReader
+        Dim myDataReader As oledbdatareader
         Dim strSQL As String
         strSQL = "SELECT league,team,player FROM clubs.vw_entries WHERE draw_no IN "
         strSQL = strSQL & "(SELECT RIGHT(home_draw,2) FROM clubs.vw_draws WHERE competition = '" & CompName & "' AND match_no = " & MatchNo & ")"

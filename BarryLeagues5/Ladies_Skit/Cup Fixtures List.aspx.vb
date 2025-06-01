@@ -68,7 +68,7 @@ Partial Class Cup_Fixtures_List
         dt.Columns.Add(New DataColumn("Comp Name", GetType(System.String)))
 
         Dim strSQL As String
-        Dim myDataReader As OleDbDataReader
+        Dim myDataReader As oledbdatareader
 
         strSQL = "EXEC ladies_skit.sp_get_options_AR"
         myDataReader = objGlobals.SQLSelect(strSQL)
@@ -111,7 +111,7 @@ Partial Class Cup_Fixtures_List
 
     Private Sub load_results()
         Dim strSQL As String
-        Dim myDataReader As OleDbDataReader
+        Dim myDataReader As oledbdatareader
         Dim LastRound As Integer = 0
         Dim PrelimCount As Integer = 0
         dt = New DataTable
@@ -186,7 +186,7 @@ Partial Class Cup_Fixtures_List
 
     Sub write_PDF_download(ByVal inFilepath As String)
         Dim strSQL As String
-        Dim myDataReader As OleDbDataReader
+        Dim myDataReader As oledbdatareader
         Dim l_param_in_names(2) As String
         Dim l_param_in_values(2) As String
 

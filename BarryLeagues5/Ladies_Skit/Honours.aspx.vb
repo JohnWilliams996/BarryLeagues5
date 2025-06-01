@@ -26,7 +26,7 @@ Partial Class Honours
         If Not IsPostBack Then
             rbSeasons.ClearSelection()
             Dim strSQL As String
-            Dim myDataReader As OleDbDataReader
+            Dim myDataReader As oledbdatareader
 
             strSQL = "SELECT DISTINCT(season) FROM ladies_skit.leagues WHERE show_champions <> 'NO CHAMPION' ORDER BY season DESC"
             myDataReader = objGlobals.SQLSelect(strSQL)
@@ -72,7 +72,7 @@ Partial Class Honours
 
     Sub load_league_honours()
         Dim strSQL As String
-        Dim myDataReader As OleDbDataReader
+        Dim myDataReader As oledbdatareader
 
         strSQL = "SELECT * FROM ladies_skit.honours WHERE season = '" & rbSeasons.Text & "' AND type = 'L' ORDER BY league_name"
         myDataReader = objGlobals.SQLSelect(strSQL)
@@ -88,7 +88,7 @@ Partial Class Honours
     End Sub
     Sub load_high_scores()
         Dim strSQL As String
-        Dim myDataReader As OleDbDataReader
+        Dim myDataReader As oledbdatareader
 
         strSQL = "SELECT * FROM ladies_skit.honours WHERE season = '" & rbSeasons.Text & "' AND type = 'H' ORDER BY hs_home_away DESC"
         myDataReader = objGlobals.SQLSelect(strSQL)
@@ -109,7 +109,7 @@ Partial Class Honours
         Dim HomeDrawNo As String = Nothing
         Dim AwayDrawNo As String = Nothing
         Dim strSQL As String
-        Dim myDataReader As OleDbDataReader
+        Dim myDataReader As oledbdatareader
 
         strSQL = "SELECT * FROM ladies_skit.honours WHERE season = '" & rbSeasons.Text & "' AND type = 'C' ORDER BY cup_name"
         myDataReader = objGlobals.SQLSelect(strSQL)

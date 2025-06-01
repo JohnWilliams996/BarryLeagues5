@@ -68,7 +68,7 @@ Partial Class Cup_Fixtures_List
         dt.Columns.Add(New DataColumn("Comp Name", GetType(System.String)))
 
         Dim strSQL As String
-        Dim myDataReader As OleDbDataReader
+        Dim myDataReader As oledbdatareader
 
         strSQL = "EXEC mens_skit.sp_get_options_AR"
         myDataReader = objGlobals.SQLSelect(strSQL)
@@ -111,7 +111,7 @@ Partial Class Cup_Fixtures_List
 
     Private Sub load_results()
         Dim strSQL As String
-        Dim myDataReader As OleDbDataReader
+        Dim myDataReader As oledbdatareader
         Dim LastRound As Integer = 0
         Dim PrelimCount As Integer = 0
         dt = New DataTable
@@ -139,7 +139,7 @@ Partial Class Cup_Fixtures_List
 
     Protected Sub gridResults_RowDataBound(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.GridViewRowEventArgs) Handles gridResults.RowDataBound
         If (e.Row.RowType = DataControlRowType.DataRow) Then
-            If InStr(e.Row.Cells(1).Text, "Round") > 0 Or InStr(e.Row.Cells(1).Text, "Final") > 0 Or _
+            If InStr(e.Row.Cells(1).Text, "Round") > 0 Or InStr(e.Row.Cells(1).Text, "Final") > 0 Or
                 InStr(e.Row.Cells(2).Text, "Round") > 0 Or InStr(e.Row.Cells(2).Text, "Final") > 0 Then
                 e.Row.BackColor = System.Drawing.Color.FromArgb(&H33, &H33, &H33)
                 e.Row.Cells(1).ForeColor = Tan
@@ -186,7 +186,7 @@ Partial Class Cup_Fixtures_List
 
     Sub write_PDF_download(ByVal inFilepath As String)
         Dim strSQL As String
-        Dim myDataReader As OleDbDataReader
+        Dim myDataReader As oledbdatareader
         Dim l_param_in_names(2) As String
         Dim l_param_in_values(2) As String
 

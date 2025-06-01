@@ -166,7 +166,7 @@ Partial Class Default1
 
     Sub load_next_meeting()
         Dim strSQL As String
-        Dim myDataReader As OleDbDataReader
+        Dim myDataReader As oledbdatareader
         Dim UKDateTime As Date = objGlobals.LondonDate(DateTime.UtcNow)
         Dim UKDate As String = UKDateTime.ToShortDateString
         strSQL = "SELECT TOP 1 meeting_venue,meeting_date FROM ladies_skit.league_meetings WHERE CONVERT(VARCHAR(8),GETDATE(),112) <= date8 ORDER BY date8"
@@ -182,7 +182,7 @@ Partial Class Default1
         Dim CommenceDate As DateTime
         Dim EndDate As DateTime
         Dim strSQL As String
-        Dim myDataReader As OleDbDataReader
+        Dim myDataReader As oledbdatareader
         ddWeeks.ClearSelection()
         strSQL = "SELECT week_number,week_commences FROM ladies_skit.vw_weeks ORDER BY week_number"
         myDataReader = objGlobals.SQLSelect(strSQL)
@@ -205,7 +205,7 @@ Partial Class Default1
 
     Sub load_stats()
         Dim strSQL As String
-        Dim myDataReader As OleDbDataReader
+        Dim myDataReader As oledbdatareader
         Dim UKDateTime As Date = objGlobals.LondonDate(DateTime.UtcNow)
         Dim UKDate As String = UKDateTime.ToShortDateString
         strSQL = "EXEC ladies_skit.sp_get_stats '" + UKDate + "'"
@@ -219,7 +219,7 @@ Partial Class Default1
 
     Sub load_fixture_result()
         Dim strSQL As String
-        Dim myDataReader As OleDbDataReader
+        Dim myDataReader As oledbdatareader
         If FixtureType = "League" Then
             strSQL = "SELECT *,CONVERT(VARCHAR(10),fixture_calendar,112) AS Fixture_YMD FROM ladies_skit.vw_fixtures WHERE fixture_id=" & CompID
         Else
@@ -311,7 +311,7 @@ Partial Class Default1
 
     Sub load_result()
         Dim strSQL As String
-        Dim myDataReader As OleDbDataReader
+        Dim myDataReader As oledbdatareader
         HomePlayersTotal = 0
         AwayPlayersTotal = 0
         strSQL = "SELECT * FROM ladies_skit.vw_fixtures_detail WHERE fixture_id = " & CompID & " ORDER BY match"
@@ -400,7 +400,7 @@ Partial Class Default1
 
     Sub colour_high_scores()
         Dim strSQL As String
-        Dim myDataReader As OleDbDataReader
+        Dim myDataReader As oledbdatareader
         Dim home_high_score As Integer
         Dim away_high_score As Integer
 
@@ -480,7 +480,7 @@ Partial Class Default1
         Dim Top10Player(99) As String
         Dim Top10Stat(99) As Double
         Dim strSQL As String = ""
-        Dim myDataReader As OleDbDataReader
+        Dim myDataReader As oledbdatareader
         Dim PlayerCount As Integer
 
         Select Case inLeague
@@ -640,7 +640,7 @@ Partial Class Default1
 
     Sub load_venues()
         Dim strSQL As String
-        Dim myDataReader As OleDbDataReader
+        Dim myDataReader As oledbdatareader
         ddlVenues.ClearSelection()
 
         strSQL = "SELECT DISTINCT(venue) FROM ladies_skit.vw_teams WHERE long_name <> 'BYE' ORDER BY venue"
@@ -654,7 +654,7 @@ Partial Class Default1
     Sub load_current_comp(ByVal inComp As String, ByVal inCompName As Label, ByVal inDate As Label, ByVal inHL As HyperLink)
 
         Dim strSQL As String
-        Dim myDataReader As OleDbDataReader
+        Dim myDataReader As oledbdatareader
 
         strSQL = "SELECT league,played_by,text,url,comp FROM ladies_skit.current_comps WHERE comp = '" & inComp & "'"
         myDataReader = objGlobals.SQLSelect(strSQL)
@@ -674,7 +674,7 @@ Partial Class Default1
 
     Function MaxWeek() As Integer
         Dim strSQL As String
-        Dim myDataReader As OleDbDataReader
+        Dim myDataReader As oledbdatareader
         strSQL = "SELECT MAX(week_number) FROM ladies_skit.vw_weeks"
         MaxWeek = -1
         myDataReader = objGlobals.SQLSelect(strSQL)
@@ -745,7 +745,7 @@ Partial Class Default1
 
     Sub load_latest_tables(inLeague As String)
         Dim strSQL As String
-        Dim myDataReader As OleDbDataReader
+        Dim myDataReader As oledbdatareader
         Dim iRow As Integer = 0
 
         strSQL = "SELECT a.Pos as Pos,a.Team as Team ,a.Pld as Pld, a.W as W, a.D as D, a.L as L ,a.Pts as Pts,b.show_champions as ShowChampions,"
@@ -802,7 +802,7 @@ Partial Class Default1
         Dim strSQL As String
         'Dim LastDate As Date = Nothing
         Dim LastDate As String = Nothing
-        Dim myDataReader As OleDbDataReader
+        Dim myDataReader As oledbdatareader
         Dim FixtureResult(9999) As String
         'strSQL = "SELECT  league,REPLACE(fixture_date,'W/C','Monday') AS fixture_date,fixture_calendar,home_team_name,home_result,away_team_name,fixture_id,status,week_number,home_rolls_result,venue "
         'strSQL = strSQL & "FROM ladies_skit.vw_fixtures "
@@ -990,7 +990,7 @@ Partial Class Default1
 
     Sub load_honours()
         Dim strSQL As String
-        Dim myDataReader As OleDbDataReader
+        Dim myDataReader As oledbdatareader
 
         strSQL = "SELECT league,team FROM ladies_skit.tables WHERE pos = 1 AND season = '" & objGlobals.get_last_season & "' ORDER BY league"
         myDataReader = objGlobals.SQLSelect(strSQL)

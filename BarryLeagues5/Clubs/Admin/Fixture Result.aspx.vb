@@ -282,7 +282,7 @@ Partial Class Admin_Fixture_Result
     End Sub
 
     Protected Sub create_tables_before()
-        Dim myDataReader2 As OleDbDataReader
+        Dim myDataReader2 As oledbdatareader
         Dim ThisTeam As String = ""
 
         Dim BeforePlayed As Integer = 0
@@ -404,7 +404,7 @@ Partial Class Admin_Fixture_Result
     End Sub
 
     Protected Sub create_tables_after(ByVal inDate As String)
-        Dim myDataReader2 As OleDbDataReader
+        Dim myDataReader2 As oledbdatareader
         Dim ThisTeam As String = ""
 
         Dim AfterPlayed As Integer = 0
@@ -716,7 +716,7 @@ Partial Class Admin_Fixture_Result
 
     Sub write_fixtures_FTP()
         Dim strSQL As String
-        Dim myDataReader As OleDbDataReader
+        Dim myDataReader As oledbdatareader
         Dim l_param_in_names(0) As String
         Dim l_param_in_values(0) As String
 
@@ -730,7 +730,7 @@ Partial Class Admin_Fixture_Result
     End Sub
 
     Sub update_player_stats(inStoredProcedure As String)
-        Dim myDataReader2 As OleDbDataReader
+        Dim myDataReader2 As oledbdatareader
         Dim tempSeason As String
         tempSeason = objGlobals.get_current_season
         inStoredProcedure = "clubs." & inStoredProcedure

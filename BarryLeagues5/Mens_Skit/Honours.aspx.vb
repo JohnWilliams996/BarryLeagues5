@@ -27,7 +27,7 @@ Partial Class Honours
         LastGrid = Request.QueryString("Grid")
         If Not IsPostBack Then
             Dim strSQL As String
-            Dim myDataReader As OleDbDataReader
+            Dim myDataReader As oledbdatareader
 
             ddSeasons.ClearSelection()
             ddSeasons.Items.Add("ALL")
@@ -86,7 +86,7 @@ Partial Class Honours
         divAllRollsHonours.Visible = False
 
         Dim strSQL As String
-        Dim myDataReader As OleDbDataReader
+        Dim myDataReader As oledbdatareader
 
         dt = New DataTable
         dr = dt.NewRow
@@ -112,7 +112,7 @@ Partial Class Honours
         divHighScores.Visible = False
 
         Dim strSQL As String
-        Dim myDataReader As OleDbDataReader
+        Dim myDataReader As oledbdatareader
 
         dt = New DataTable
         dr = dt.NewRow
@@ -141,7 +141,7 @@ Partial Class Honours
         divSummary.Visible = False
 
         Dim strSQL As String
-        Dim myDataReader As OleDbDataReader
+        Dim myDataReader As oledbdatareader
         Dim LastSeason As String = ""
 
         dt = New DataTable
@@ -182,7 +182,7 @@ Partial Class Honours
 
     Sub load_cup_honours()
         Dim strSQL As String
-        Dim myDataReader As OleDbDataReader
+        Dim myDataReader As oledbdatareader
         Dim LastSeason As String = ""
 
         If AllSeasons Then
@@ -236,7 +236,7 @@ Partial Class Honours
         If divTeamHonours.Visible Then divTeamHonours.Visible = False
 
         Dim strSQL As String
-        Dim myDataReader As OleDbDataReader
+        Dim myDataReader As oledbdatareader
 
         dt = New DataTable
         dr = dt.NewRow
@@ -278,7 +278,7 @@ Partial Class Honours
         End If
 
         Dim strSQL As String
-        Dim myDataReader As OleDbDataReader
+        Dim myDataReader As oledbdatareader
 
         dt = New DataTable
         dr = dt.NewRow
@@ -326,7 +326,7 @@ Partial Class Honours
         End If
 
         Dim strSQL As String
-        Dim myDataReader As OleDbDataReader
+        Dim myDataReader As oledbdatareader
         Dim LastSeason As String = ""
 
         dt = New DataTable

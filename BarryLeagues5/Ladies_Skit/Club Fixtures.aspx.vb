@@ -40,7 +40,7 @@ Partial Class Club_Fixtures
 
     Sub load_teams()
         Dim strSQL As String
-        Dim myDataReader As OleDbDataReader
+        Dim myDataReader As oledbdatareader
 
         TeamCount = 0
         strSQL = "SELECT league,long_name,home_night FROM ladies_skit.vw_teams WHERE venue = '" & ClubSelected & "' ORDER BY league,long_name"
@@ -180,7 +180,7 @@ Partial Class Club_Fixtures
 
     Sub grid_load_dates()
         Dim strSQL As String
-        Dim myDataReader As OleDbDataReader
+        Dim myDataReader As oledbdatareader
         Dim intI As Integer
 
 
@@ -231,7 +231,7 @@ Partial Class Club_Fixtures
     Sub grid_load_fixtures()
 
         Dim strSQL As String
-        Dim myDataReader As OleDbDataReader
+        Dim myDataReader As oledbdatareader
         Dim intI As Integer
         Dim gRow As Integer
         Dim gCol As Integer
@@ -368,7 +368,7 @@ Partial Class Club_Fixtures
 
     Sub load_venues()
         Dim strSQL As String
-        Dim myDataReader As OleDbDataReader
+        Dim myDataReader As oledbdatareader
         ddlVenues.ClearSelection()
 
         strSQL = "SELECT DISTINCT(venue) FROM ladies_skit.vw_teams WHERE long_name <> 'BYE' ORDER BY venue"

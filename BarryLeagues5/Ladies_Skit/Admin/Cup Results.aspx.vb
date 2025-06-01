@@ -51,7 +51,7 @@ Partial Class Admin_Cup_Results
 
     Sub load_results()
         Dim strSQL As String
-        Dim myDataReader As OleDbDataReader
+        Dim myDataReader As oledbdatareader
         dt = New DataTable
 
         'add header row
@@ -156,7 +156,7 @@ Partial Class Admin_Cup_Results
 
     Protected Sub gridResults_RowCommand(sender As Object, e As System.Web.UI.WebControls.GridViewCommandEventArgs) Handles gridResults.RowCommand
         Dim strSQL As String = ""
-        Dim myDataReader As OleDbDataReader
+        Dim myDataReader As oledbdatareader
         Dim index As Integer = Convert.ToInt32(e.CommandArgument)
         Dim selectedRow As GridViewRow = gridResults.Rows(index)
         Dim MatchNo As String = selectedRow.Cells(0).Text
@@ -183,7 +183,7 @@ Partial Class Admin_Cup_Results
     End Sub
     Sub write_cup_draws_FTP()
         Dim strSQL As String
-        Dim myDataReader As OleDbDataReader
+        Dim myDataReader As oledbdatareader
         Dim l_param_in_names(0) As String
         Dim l_param_in_values(0) As String
         l_param_in_names(0) = "@inComp"

@@ -127,8 +127,8 @@ Partial Class [Default]
 
             Dim strIPAddress As String = GetIPAddress()
             Dim strSQL As String
-            Dim myDataReader As OleDbDataReader
-            Dim myDataReader1 As OleDbDataReader
+            Dim myDataReader As oledbdatareader
+            Dim myDataReader1 As oledbdatareader
 
             strSQL = "EXEC clubs.sp_get_result_refresh_flag '" & strIPAddress & "'"
             myDataReader = objGlobals.SQLSelect(strSQL)
@@ -153,7 +153,7 @@ Partial Class [Default]
 
     Sub load_next_meeting()
         Dim strSQL As String
-        Dim myDataReader As OleDbDataReader
+        Dim myDataReader As oledbdatareader
         Dim UKDateTime As Date = objGlobals.LondonDate(DateTime.UtcNow)
         Dim UKDate As String = UKDateTime.ToShortDateString
         strSQL = "SELECT TOP 1 meeting_venue,meeting_date FROM clubs.league_meetings WHERE CONVERT(VARCHAR(8),GETDATE(),112) <= date8 ORDER BY date8"
@@ -166,7 +166,7 @@ Partial Class [Default]
 
     Sub load_stats()
         Dim strSQL As String
-        Dim myDataReader As OleDbDataReader
+        Dim myDataReader As oledbdatareader
         Dim UKDateTime As Date = objGlobals.LondonDate(DateTime.UtcNow)
         Dim UKDate As String = UKDateTime.ToShortDateString
         strSQL = "EXEC clubs.sp_get_stats '" + UKDate + "'"
@@ -184,7 +184,7 @@ Partial Class [Default]
         Dim Top10Player(99) As String
         Dim Top10Stat(99) As Double
         Dim strSQL As String = ""
-        Dim myDataReader As OleDbDataReader
+        Dim myDataReader As oledbdatareader
         Dim PlayerCount As Integer
 
         Select Case inLeague
@@ -393,7 +393,7 @@ Partial Class [Default]
 
     Sub load_venues()
         Dim strSQL As String
-        Dim myDataReader As OleDbDataReader
+        Dim myDataReader As oledbdatareader
         ddlVenues.ClearSelection()
 
         strSQL = "SELECT DISTINCT(venue) FROM clubs.vw_teams WHERE long_name <> 'BYE' ORDER BY venue"
@@ -408,7 +408,7 @@ Partial Class [Default]
     Sub load_current_comp(ByVal inLeague As String, ByVal inComp As String, ByVal inCompName As Label, ByVal inDate As Label, ByVal inHL As HyperLink)
 
         Dim strSQL As String
-        Dim myDataReader As OleDbDataReader
+        Dim myDataReader As oledbdatareader
 
         strSQL = "SELECT league,played_by,text,url,comp FROM clubs.current_comps WHERE league = '" & inLeague & "' AND comp = '" & inComp & "'"
         myDataReader = objGlobals.SQLSelect(strSQL)
@@ -432,7 +432,7 @@ Partial Class [Default]
 
     Function MaxWeek() As Integer
         Dim strSQL As String
-        Dim myDataReader As OleDbDataReader
+        Dim myDataReader As oledbdatareader
         strSQL = "SELECT MAX(week_number) FROM clubs.vw_weeks"
         MaxWeek = -1
         myDataReader = objGlobals.SQLSelect(strSQL)
@@ -448,7 +448,7 @@ Partial Class [Default]
         Dim CommenceDate As DateTime
         Dim EndDate As DateTime
         Dim strSQL As String
-        Dim myDataReader As OleDbDataReader
+        Dim myDataReader As oledbdatareader
         ddWeeks.ClearSelection()
         strSQL = "SELECT week_number,week_commences FROM clubs.vw_weeks ORDER BY week_number"
         myDataReader = objGlobals.SQLSelect(strSQL)
@@ -530,7 +530,7 @@ Partial Class [Default]
 
     Sub load_latest_tables(inLeague As String)
         Dim strSQL As String
-        Dim myDataReader As OleDbDataReader
+        Dim myDataReader As oledbdatareader
         Dim iRow As Integer = 0
 
         strSQL = "SELECT a.pos as Pos,a.team as Team ,a.pld as Pld ,a.pts as Pts,a.deducted as Deducted,b.show_champions as ShowChampions,''" 'c.number_nines as Number_Nines "
@@ -609,7 +609,7 @@ Partial Class [Default]
         'Dim LastDate As Date = Nothing
         Dim LastDate As String = Nothing
         Dim FixtureType As String = Nothing
-        Dim myDataReader As OleDbDataReader
+        Dim myDataReader As oledbdatareader
         Dim FixtureResult(9999) As String
         'strSQL = "SELECT  league,REPLACE(fixture_date,'W/C','Monday') AS fixture_date,fixture_calendar,home_team_name,home_result, away_team_name,home_points_deducted,away_points_deducted,fixture_id,status,week_number "
         'strSQL = strSQL & "FROM clubs.vw_fixtures "
@@ -837,7 +837,7 @@ Partial Class [Default]
 
     Sub load_honours()
         Dim strSQL As String
-        Dim myDataReader As OleDbDataReader
+        Dim myDataReader As oledbdatareader
 
         strSQL = "SELECT league,team FROM clubs.tables WHERE pos = 1 AND season = '" & objGlobals.get_last_season & "' ORDER BY league"
         myDataReader = objGlobals.SQLSelect(strSQL)
@@ -1349,7 +1349,7 @@ Partial Class [Default]
 
     Sub write_PDF_download(ByVal inFilepath As String)
         Dim strSQL As String
-        Dim myDataReader As OleDbDataReader
+        Dim myDataReader As oledbdatareader
         Dim l_param_in_names(2) As String
         Dim l_param_in_values(2) As String
 
@@ -1404,7 +1404,7 @@ Partial Class [Default]
         Call load_week_results(CurrentWeek)
 
         Dim strSQL As String
-        Dim myDataReader As OleDbDataReader
+        Dim myDataReader As oledbdatareader
         Dim UpdatedCount As Integer
         Dim RecordCount As Integer
 
@@ -1461,7 +1461,7 @@ Partial Class [Default]
         CurrentWeek = Val(Mid(ddWeeks.Text, 6, 2))
 
         Dim strSQL As String
-        Dim myDataReader As OleDbDataReader
+        Dim myDataReader As oledbdatareader
         Dim UpdatedCount As Integer
         Dim RecordCount As Integer
 
@@ -1526,7 +1526,7 @@ Partial Class [Default]
     End Sub
     Sub load_fixture_result()
         Dim strSQL As String
-        Dim myDataReader As OleDbDataReader
+        Dim myDataReader As oledbdatareader
 
         strSQL = "SELECT *,CONVERT(VARCHAR(10),fixture_calendar,112) AS Fixture_YMD FROM clubs.vw_fixtures WHERE fixture_id=" & CompID
         myDataReader = objGlobals.SQLSelect(strSQL)
@@ -1597,7 +1597,7 @@ Partial Class [Default]
 
     Sub load_skittles_result()
         Dim strSQL As String
-        Dim myDataReader As OleDbDataReader
+        Dim myDataReader As oledbdatareader
 
         TotalHome = 0
         TotalAway = 0
@@ -1687,7 +1687,7 @@ Partial Class [Default]
 
     Sub load_crib_result()
         Dim strSQL As String
-        Dim myDataReader As OleDbDataReader
+        Dim myDataReader As oledbdatareader
 
         TotalHome = 0
         TotalAway = 0
@@ -1780,7 +1780,7 @@ Partial Class [Default]
 
     Sub load_snooker_result()
         Dim strSQL As String
-        Dim myDataReader As OleDbDataReader
+        Dim myDataReader As oledbdatareader
 
         TotalHome = 0
         TotalAway = 0
@@ -2046,7 +2046,7 @@ Partial Class [Default]
     Protected Sub chkRefresh_CheckedChanged(sender As Object, e As EventArgs) Handles chkRefresh.CheckedChanged
         Dim strIPAddress As String = GetIPAddress()
         Dim strSQL As String
-        Dim myDataReader As OleDbDataReader
+        Dim myDataReader As oledbdatareader
 
         If chkRefresh.Checked Then
             strSQL = "EXEC clubs.sp_update_result_refresh_flag '" & strIPAddress & "',1"

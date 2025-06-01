@@ -87,7 +87,7 @@ Partial Class Club_Fixtures
 
     End Sub
 
- 
+
     Sub grid_load_teams()
 
         dr = dt.NewRow
@@ -178,7 +178,7 @@ Partial Class Club_Fixtures
 
     End Sub
 
-      Sub grid_load_dates()
+    Sub grid_load_dates()
         Dim strSQL As String
         Dim myDataReader As oledbdatareader
         Dim intI As Integer

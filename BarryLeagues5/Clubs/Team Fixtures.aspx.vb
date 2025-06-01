@@ -60,7 +60,7 @@ Partial Class Team_Fixtures
 
         grid6aside.Visible = False
         Call load_players()
-        txtInfo.Visible = false
+        txtInfo.Visible = False
         Select Case Left(objGlobals.LeagueSelected, 4)
             Case "SNOO"
                 txtInfo.Text = "Snooker Teams:" + vbCrLf + "Deadline for registering new players is 31st December 2022"
@@ -90,7 +90,7 @@ Partial Class Team_Fixtures
     Function get_league_from_team(ByVal inLeague As String) As String
         Dim strSQL As String = ""
         get_league_from_team = ""
-        Dim myDataReader As OleDbDataReader
+        Dim myDataReader As oledbdatareader
         If InStr(inLeague, "CRIB", CompareMethod.Text) > 0 Then strSQL = "SELECT league FROM clubs.vw_teams WHERE league LIKE 'CRIB%' AND long_name = '" & objGlobals.TeamSelected & "'"
         If InStr(inLeague, "SKITTLES", CompareMethod.Text) > 0 Then strSQL = "SELECT league FROM clubs.vw_teams WHERE league LIKE 'SKITTLES%' AND long_name = '" & objGlobals.TeamSelected & "'"
         If InStr(inLeague, "SNOOKER", CompareMethod.Text) > 0 Then strSQL = "SELECT league FROM clubs.vw_teams WHERE league LIKE 'SNOOKER%' AND long_name = '" & objGlobals.TeamSelected & "'"
@@ -102,7 +102,7 @@ Partial Class Team_Fixtures
 
     Sub load_fixture_result()
         Dim strSQL As String
-        Dim myDataReader As OleDbDataReader
+        Dim myDataReader As oledbdatareader
 
         strSQL = "SELECT *,CONVERT(VARCHAR(10),fixture_calendar,112) AS Fixture_YMD FROM clubs.vw_fixtures WHERE fixture_id=" & CompID
         myDataReader = objGlobals.SQLSelect(strSQL)
@@ -124,7 +124,7 @@ Partial Class Team_Fixtures
 
     Sub load_singles()
         Dim strSQL As String
-        Dim myDataReader As OleDbDataReader
+        Dim myDataReader As oledbdatareader
 
         dt.Rows.Add("")
         dt.Rows.Add("Singles Entries")
@@ -139,7 +139,7 @@ Partial Class Team_Fixtures
 
     Sub load_pairs()
         Dim strSQL As String
-        Dim myDataReader As OleDbDataReader
+        Dim myDataReader As oledbdatareader
         Dim ThisPair As String = ""
         Dim StillInPairs As Integer
 
@@ -232,7 +232,7 @@ Partial Class Team_Fixtures
 
     Sub load_3aSide()
         Dim strSQL As String
-        Dim myDataReader As OleDbDataReader
+        Dim myDataReader As oledbdatareader
         Dim This3aSide As String = ""
         Dim StillIn3aSide As Integer
 
@@ -299,7 +299,7 @@ Partial Class Team_Fixtures
 
     Sub load_6aSide()
         Dim strSQL As String
-        Dim myDataReader As OleDbDataReader
+        Dim myDataReader As oledbdatareader
 
         dt = New DataTable
         dt.Columns.Add(New DataColumn("player1", GetType(System.String)))
@@ -323,7 +323,7 @@ Partial Class Team_Fixtures
 
     Sub load_title()
         Dim strSQL As String
-        Dim myDataReader As OleDbDataReader
+        Dim myDataReader As oledbdatareader
 
         lblTeam.Text = objGlobals.TeamSelected
         lblLeague.Text = objGlobals.LeagueSelected
@@ -349,7 +349,7 @@ Partial Class Team_Fixtures
 
     Sub get_week_pts_pld()
         Dim strSQL As String
-        Dim myDataReader As OleDbDataReader
+        Dim myDataReader As oledbdatareader
         Dim Wk As Integer
 
         strSQL = "SELECT week,pts,pos FROM clubs.vw_tables_week"
@@ -366,7 +366,7 @@ Partial Class Team_Fixtures
 
     Sub load_fixtures1(inGrid As GridView)
         Dim strSQL As String
-        Dim myDataReader As OleDbDataReader
+        Dim myDataReader As oledbdatareader
         Dim Wk As Integer
         Dim CurrentWeek As Integer = objGlobals.GetCurrentWeek
         Dim home_venue As String = ""
@@ -502,10 +502,10 @@ Partial Class Team_Fixtures
 
     Sub load_options(ByRef inGrid As GridView)
         Dim strSQL As String
-        Dim myDataReader As OleDbDataReader
+        Dim myDataReader As oledbdatareader
 
         strSQL = "Select long_name, home_night, venue FROM clubs.vw_teams WHERE league = '" & objGlobals.LeagueSelected & "' AND long_name <> 'BYE' ORDER BY long_name"
-                            myDataReader = objGlobals.SQLSelect(strSQL)
+        myDataReader = objGlobals.SQLSelect(strSQL)
 
         dt = New DataTable
 
@@ -551,7 +551,7 @@ Partial Class Team_Fixtures
 
     Sub load_players()
         Dim strSQL As String
-        Dim myDataReader As OleDbDataReader
+        Dim myDataReader As oledbdatareader
         Dim PlayerCount As Integer = 0
         If Left(objGlobals.LeagueSelected, 4) <> "SNOO" Then
             dt.Rows.Add("Players")
@@ -778,7 +778,7 @@ Partial Class Team_Fixtures
 
     Sub write_PDF_download(ByVal inFilepath As String)
         Dim strSQL As String
-        Dim myDataReader As OleDbDataReader
+        Dim myDataReader As oledbdatareader
         Dim l_param_in_names(2) As String
         Dim l_param_in_values(2) As String
 

@@ -30,7 +30,7 @@ Partial Class League_Tables
 
     Sub load_options(ByRef inGrid As GridView)
         Dim strSQL As String
-        Dim myDataReader As OleDbDataReader
+        Dim myDataReader As oledbdatareader
 
         strSQL = "SELECT long_name,home_night,venue FROM all_skit.vw_teams WHERE league = '" & objGlobals.LeagueSelected & "' AND long_name <> 'BYE' ORDER BY long_name"
         myDataReader = objGlobals.SQLSelect(strSQL)
@@ -57,7 +57,7 @@ Partial Class League_Tables
 
     Sub load_table(ByRef inGrid As GridView)
         Dim strSQL As String
-        Dim myDataReader As OleDbDataReader
+        Dim myDataReader As oledbdatareader
         dt = New DataTable
 
         'add header row

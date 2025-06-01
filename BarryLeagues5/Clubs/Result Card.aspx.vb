@@ -77,7 +77,7 @@ Partial Class Clubs_ResultCard
     End Sub
     Sub show_comments()
         Dim strSQL As String
-        Dim myDataReader As OleDbDataReader
+        Dim myDataReader As oledbdatareader
         strSQL = "SELECT comments FROM clubs.fixtures_comments WHERE season = '" & objGlobals.current_season & "' AND fixture_id = " & CompID.ToString
         myDataReader = objGlobals.SQLSelect(strSQL)
         While myDataReader.Read()
@@ -86,7 +86,7 @@ Partial Class Clubs_ResultCard
     End Sub
     Function get_fixture_week() As Integer
         Dim strSQL As String
-        Dim myDataReader As OleDbDataReader
+        Dim myDataReader As oledbdatareader
 
         strSQL = "SELECT week_number FROM clubs.vw_fixtures WHERE fixture_id=" & CompID
         myDataReader = objGlobals.SQLSelect(strSQL)
@@ -97,7 +97,7 @@ Partial Class Clubs_ResultCard
 
     Sub load_fixture_result()
         Dim strSQL As String
-        Dim myDataReader As OleDbDataReader
+        Dim myDataReader As oledbdatareader
 
         strSQL = "SELECT *,CONVERT(VARCHAR(10),fixture_calendar,112) AS Fixture_YMD FROM clubs.vw_fixtures WHERE fixture_id=" & CompID
         myDataReader = objGlobals.SQLSelect(strSQL)
@@ -173,7 +173,7 @@ Partial Class Clubs_ResultCard
 
     Sub load_skittles_result()
         Dim strSQL As String
-        Dim myDataReader As OleDbDataReader
+        Dim myDataReader As oledbdatareader
 
         TotalHome = 0
         TotalAway = 0
@@ -265,7 +265,7 @@ Partial Class Clubs_ResultCard
 
     Sub load_crib_result()
         Dim strSQL As String
-        Dim myDataReader As OleDbDataReader
+        Dim myDataReader As oledbdatareader
 
         TotalHome = 0
         TotalAway = 0
@@ -357,7 +357,7 @@ Partial Class Clubs_ResultCard
 
     Sub load_snooker_result()
         Dim strSQL As String
-        Dim myDataReader As OleDbDataReader
+        Dim myDataReader As oledbdatareader
 
         TotalHome = 0
         TotalAway = 0

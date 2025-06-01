@@ -428,7 +428,7 @@ Partial Class Admin_Add_Edit_Result
 
     Sub load_details()
         Dim strSQL As String
-        Dim myDataReader As OleDbDataReader
+        Dim myDataReader As oledbdatareader
         Dim MatchNo As Integer = 0
         If Left(lblLeague.Text, 4) = "CRIB" Then ' hide points 2,4,6
             txtHomePoints2.Text = "" : txtHomePoints2.Enabled = False : txtHomePoints2.BackColor = System.Drawing.Color.FromArgb(&H33, &H33, &H33) : txtHomePoints2.BorderColor = System.Drawing.Color.FromArgb(&H33, &H33, &H33)
@@ -2203,7 +2203,7 @@ Partial Class Admin_Add_Edit_Result
 
     Protected Sub btnUpdate_Click(sender As Object, e As System.EventArgs) Handles btnUpdate.Click
         Dim strSQL As String
-        Dim myDataReader As OleDbDataReader
+        Dim myDataReader As oledbdatareader
         Dim NewResult As String = ""
         If Left(lblLeague.Text, 4) = "SKIT" Then
             NewResult = ddSkittlesResult.SelectedValue
@@ -2262,8 +2262,8 @@ Partial Class Admin_Add_Edit_Result
 
     Sub update_player_stats(inStoredProcedure As String)
         Dim strSQL As String
-        Dim myDataReader As OleDbDataReader
-        Dim myDataReader2 As OleDbDataReader
+        Dim myDataReader As oledbdatareader
+        Dim myDataReader2 As oledbdatareader
         Dim tempSeason As String
         tempSeason = objGlobals.get_current_season
         inStoredProcedure = "clubs." & inStoredProcedure
@@ -2289,7 +2289,7 @@ Partial Class Admin_Add_Edit_Result
 
     Sub update_deducted_header()
         Dim strSQL As String
-        Dim myDataReader As OleDbDataReader
+        Dim myDataReader As oledbdatareader
         strSQL = "UPDATE clubs.vw_fixtures SET Status = 2,home_points_deducted = " & ddHomePointsDeducted.SelectedValue & ",away_points_deducted = " & ddAwayPointsDeducted.SelectedValue & " WHERE fixture_id = " & fixture_id
         myDataReader = objGlobals.SQLSelect(strSQL)
         objGlobals.close_connection()
@@ -2299,7 +2299,7 @@ Partial Class Admin_Add_Edit_Result
     Sub update_fixture_details()
         Dim strSQL As String
         Dim strSQL1 As String
-        Dim myDataReader As OleDbDataReader
+        Dim myDataReader As oledbdatareader
         Dim neutral_fixture As Integer
 
         strSQL = "DELETE FROM clubs.vw_fixtures_detail WHERE fixture_id = " & fixture_id
@@ -2522,7 +2522,7 @@ Partial Class Admin_Add_Edit_Result
     Protected Sub btnAdd1_Click(sender As Object, e As System.EventArgs) Handles btnAdd1.Click
         'add new player to home team
         Dim strSQL As String
-        Dim myDataReader As OleDbDataReader
+        Dim myDataReader As oledbdatareader
         Dim Found As Boolean = False
         'see if player already exists first
         lblHomeExists.Visible = False
@@ -2590,7 +2590,7 @@ Partial Class Admin_Add_Edit_Result
     Protected Sub btnAdd2_Click(sender As Object, e As System.EventArgs) Handles btnAdd2.Click
         'add new player to Away team
         Dim strSQL As String
-        Dim myDataReader As OleDbDataReader
+        Dim myDataReader As oledbdatareader
         Dim Found As Boolean = False
         lblAwayExists.Visible = False
         'see if player already exists first

@@ -132,7 +132,7 @@ Partial Class League_Tables
 
     Sub load_fixture_result()
         Dim strSQL As String
-        Dim myDataReader As OleDbDataReader
+        Dim myDataReader As oledbdatareader
 
         strSQL = "SELECT *,CONVERT(VARCHAR(10),fixture_calendar,112) AS Fixture_YMD FROM ladies_skit.vw_fixtures WHERE fixture_id=" & CompID
         myDataReader = objGlobals.SQLSelect(strSQL)
@@ -210,7 +210,7 @@ Partial Class League_Tables
 
     Sub load_result()
         Dim strSQL As String
-        Dim myDataReader As OleDbDataReader
+        Dim myDataReader As oledbdatareader
         HomePlayersTotal = 0
         AwayPlayersTotal = 0
         strSQL = "SELECT * FROM ladies_skit.vw_fixtures_detail WHERE fixture_id = " & CompID & " ORDER BY match"
@@ -300,7 +300,7 @@ Partial Class League_Tables
 
     Sub colour_high_scores()
         Dim strSQL As String
-        Dim myDataReader As OleDbDataReader
+        Dim myDataReader As oledbdatareader
         Dim home_high_score As Integer
         Dim away_high_score As Integer
 
@@ -378,7 +378,7 @@ Partial Class League_Tables
 
     Sub load_options(ByRef inGrid As GridView)
         Dim strSQL As String
-        Dim myDataReader As OleDbDataReader
+        Dim myDataReader As oledbdatareader
 
         strSQL = "SELECT long_name,home_night,venue FROM ladies_skit.vw_teams WHERE league = '" & objGlobals.LeagueSelected & "' AND long_name <> 'BYE' ORDER BY long_name"
         myDataReader = objGlobals.SQLSelect(strSQL)
@@ -414,7 +414,7 @@ Partial Class League_Tables
 
     Sub load_late_results(ByRef inGrid As GridView)
         Dim strSQL As String
-        Dim myDataReader As OleDbDataReader
+        Dim myDataReader As oledbdatareader
 
         dt = New DataTable
 
@@ -452,7 +452,7 @@ Partial Class League_Tables
 
     Sub load_recent_results(ByRef inGrid As GridView)
         Dim strSQL As String
-        Dim myDataReader As OleDbDataReader
+        Dim myDataReader As oledbdatareader
 
         dt = New DataTable
 
@@ -494,7 +494,7 @@ Partial Class League_Tables
 
     Sub load_high_scores(ByRef inGrid As GridView)
         Dim strSQL As String
-        Dim myDataReader As OleDbDataReader
+        Dim myDataReader As oledbdatareader
 
         dt = New DataTable
         gRow = 0
@@ -592,7 +592,7 @@ Partial Class League_Tables
 
     Sub load_table(ByRef inGrid As GridView, ByRef inSortBy As String)
         Dim strSQL As String
-        Dim myDataReader As OleDbDataReader
+        Dim myDataReader As oledbdatareader
         Dim SortColumn As Integer
         dt = New DataTable
 
@@ -768,7 +768,7 @@ Partial Class League_Tables
 
     Function get_team_last_6(ByVal inLeague As String, inTeam As String) As String
         Dim strSQL As String
-        Dim myDataReader As OleDbDataReader
+        Dim myDataReader As oledbdatareader
         Dim ResultCount As Integer = 6
         Dim Result(6) As String
         get_team_last_6 = ""
@@ -946,7 +946,7 @@ Partial Class League_Tables
     Private Function fnGetLeague(inTeam As String) As String
         fnGetLeague = ""
         Dim strSQL As String
-        Dim myDataReader As OleDbDataReader
+        Dim myDataReader As oledbdatareader
         strSQL = "SELECT league FROM ladies_skit.vw_teams WHERE long_name = '" & inTeam & "'"
         myDataReader = objGlobals.SQLSelect(strSQL)
         While myDataReader.Read()

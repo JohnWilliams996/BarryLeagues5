@@ -33,7 +33,7 @@ Partial Class League_Tables
         dt.Columns.Add(New DataColumn("Comp Name", GetType(System.String)))
 
         Dim strSQL As String
-        Dim myDataReader As OleDbDataReader
+        Dim myDataReader As oledbdatareader
 
         strSQL = "EXEC mens_skit.sp_get_options_AR"
         myDataReader = objGlobals.SQLSelect(strSQL)

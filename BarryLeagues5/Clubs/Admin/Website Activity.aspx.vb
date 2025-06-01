@@ -10,7 +10,7 @@ Partial Class Admin_Website_Activity
         objGlobals.CurrentUser = "clubs_user"
         objGlobals.CurrentSchema = "clubs."
 
-        SqlDataSource1.ConnectionString = objGlobals.getDataSourceConnectionString
+        SqlDataSource1.ConnectionString = objGlobals.getSQLConnectionString
         If Not Request.Cookies("lastVisit") Is Nothing Then
             objGlobals.AdminLogin = True
         Else
@@ -32,18 +32,18 @@ Partial Class Admin_Website_Activity
             End If
         End If
 
-        SqlDataSourcemy_ip_addresses.ConnectionString = objGlobals.getDataSourceConnectionString
+        SqlDataSourcemy_ip_addresses.ConnectionString = objGlobals.getSQLConnectionString
         lblIPExists.Visible = False
         lblNoIP.Visible = False
     End Sub
 
     Protected Sub btnRefresh_Click(sender As Object, e As System.EventArgs) Handles btnRefresh.Click
-        If Not objGlobals.AdminLogin Or _
-            InStr(UCase(txtSQL.Text), "PAGE_VISITS", CompareMethod.Text) = 0 Or _
-            InStr(UCase(txtSQL.Text), "INSERT", CompareMethod.Text) > 0 Or _
-            InStr(UCase(txtSQL.Text), "DELETE", CompareMethod.Text) > 0 Or _
-            InStr(UCase(txtSQL.Text), "UPDATE", CompareMethod.Text) > 0 Or _
-            InStr(UCase(txtSQL.Text), "DROP", CompareMethod.Text) > 0 Or _
+        If Not objGlobals.AdminLogin Or
+            InStr(UCase(txtSQL.Text), "PAGE_VISITS", CompareMethod.Text) = 0 Or
+            InStr(UCase(txtSQL.Text), "INSERT", CompareMethod.Text) > 0 Or
+            InStr(UCase(txtSQL.Text), "DELETE", CompareMethod.Text) > 0 Or
+            InStr(UCase(txtSQL.Text), "UPDATE", CompareMethod.Text) > 0 Or
+            InStr(UCase(txtSQL.Text), "DROP", CompareMethod.Text) > 0 Or
             InStr(UCase(txtSQL.Text), "TRUNCATE", CompareMethod.Text) > 0 Then
 
             txtSQL.Text = "NOT AUTHORIZED"
@@ -79,7 +79,7 @@ Partial Class Admin_Website_Activity
 
     Protected Sub btnAdd_Click(sender As Object, e As System.EventArgs) Handles btnAdd.Click
         Dim strSQL As String
-        Dim myDataReader As oledbdatareader    'MySqlDataReader
+        Dim myDataReader As oledbdatareader    'Myoledbdatareader
         If txtIPAddress.Text = "" Then
             lblNoIP.Visible = True
             Exit Sub

@@ -87,7 +87,7 @@ Partial Class Default1
         Dim CommenceDate As DateTime
         Dim EndDate As DateTime
         Dim strSQL As String
-        Dim myDataReader As OleDbDataReader
+        Dim myDataReader As oledbdatareader
         ddWeeks.ClearSelection()
         strSQL = "SELECT week_number,week_commences FROM all_skit.vw_weeks ORDER BY week_number"
         myDataReader = objGlobals.SQLSelect(strSQL)
@@ -105,7 +105,7 @@ Partial Class Default1
 
     Function MaxWeek() As Integer
         Dim strSQL As String
-        Dim myDataReader As OleDbDataReader
+        Dim myDataReader As oledbdatareader
         strSQL = "SELECT MAX(week_number) FROM all_skit.vw_weeks"
         MaxWeek = -1
         myDataReader = objGlobals.SQLSelect(strSQL)
@@ -205,7 +205,7 @@ Partial Class Default1
         Dim strSQL As String
         'Dim LastDate As Date = Nothing
         Dim LastDate As String = Nothing
-        Dim myDataReader As OleDbDataReader
+        Dim myDataReader As oledbdatareader
         Dim FixtureResult(9999) As String
 
         strSQL = "SELECT league,fixture_date,home_team_name,home_result,away_team_name,fixture_id,venue,status FROM all_skit.vw_fixtures_combined "

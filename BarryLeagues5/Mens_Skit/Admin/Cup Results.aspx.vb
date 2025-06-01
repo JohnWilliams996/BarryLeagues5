@@ -49,9 +49,9 @@ Partial Class Admin_Cup_Results
         End While
     End Sub
 
-      Sub load_results()
+    Sub load_results()
         Dim strSQL As String
-        Dim myDataReader As OleDbDataReader
+        Dim myDataReader As oledbdatareader
         dt = New DataTable
 
         'add header row
@@ -125,7 +125,7 @@ Partial Class Admin_Cup_Results
             Dim lb2 As Button = DirectCast(e.Row.Cells(4).Controls(0), Button)
             Dim lb3 As Button = DirectCast(e.Row.Cells(5).Controls(0), Button)
             Dim lb4 As Button = DirectCast(e.Row.Cells(6).Controls(0), Button)
-            If InStr(e.Row.Cells(1).Text, "Round") > 0 Or InStr(e.Row.Cells(1).Text, "Final") > 0 Or _
+            If InStr(e.Row.Cells(1).Text, "Round") > 0 Or InStr(e.Row.Cells(1).Text, "Final") > 0 Or
                 InStr(e.Row.Cells(2).Text, "Round") > 0 Or InStr(e.Row.Cells(2).Text, "Final") > 0 Then
                 e.Row.BackColor = System.Drawing.Color.FromArgb(&H33, &H33, &H33)
                 e.Row.Cells(1).ForeColor = Tan
@@ -156,7 +156,7 @@ Partial Class Admin_Cup_Results
 
     Protected Sub gridResults_RowCommand(sender As Object, e As System.Web.UI.WebControls.GridViewCommandEventArgs) Handles gridResults.RowCommand
         Dim strSQL As String = ""
-        Dim myDataReader As OleDbDataReader
+        Dim myDataReader As oledbdatareader
         Dim index As Integer = Convert.ToInt32(e.CommandArgument)
         Dim selectedRow As GridViewRow = gridResults.Rows(index)
         Dim MatchNo As String = selectedRow.Cells(0).Text
@@ -183,7 +183,7 @@ Partial Class Admin_Cup_Results
     End Sub
     Sub write_cup_draws_FTP()
         Dim strSQL As String
-        Dim myDataReader As OleDbDataReader
+        Dim myDataReader As oledbdatareader
         Dim l_param_in_names(0) As String
         Dim l_param_in_values(0) As String
         l_param_in_names(0) = "@inComp"

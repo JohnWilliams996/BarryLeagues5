@@ -170,7 +170,7 @@ Partial Class Admin_Add_Edit_Result
 
     Protected Sub load_result()
         Dim strSQL As String
-        Dim myDataReader As oledbdatareader    'MySqlDataReader
+        Dim myDataReader As oledbdatareader    'Myoledbdatareader
         strSQL = "SELECT * FROM " & objGlobals.CurrentSchema & "vw_fixtures WHERE fixture_id = " & fixture_id
         myDataReader = objGlobals.SQLSelect(strSQL)
         While myDataReader.Read()
@@ -217,7 +217,7 @@ Partial Class Admin_Add_Edit_Result
 
     Sub load_available_players()
         Dim strSQL As String
-        Dim myDataReader As oledbdatareader    'MySqlDataReader
+        Dim myDataReader As oledbdatareader    'Myoledbdatareader
         Dim AvailCount As Integer = 0
         Dim EmptyAvail As Integer = 0
         If SelectedHomePlayers = "" Then
@@ -438,7 +438,7 @@ Partial Class Admin_Add_Edit_Result
 
     Sub load_details()
         Dim strSQL As String
-        Dim myDataReader As OleDbDataReader    'MySqlDataReader
+        Dim myDataReader As oledbdatareader    'Myoledbdatareader
         Dim MatchNo As Integer = 0
         SelectedHomePlayers = ""
         SelectedAwayPlayers = ""
@@ -2193,7 +2193,7 @@ Partial Class Admin_Add_Edit_Result
 
     Protected Sub btnUpdate_Click(sender As Object, e As System.EventArgs) Handles btnUpdate.Click
         Dim strSQL As String
-        Dim myDataReader As OleDbDataReader    'MySqlDataReader
+        Dim myDataReader As oledbdatareader    'Myoledbdatareader
         Dim NewResult As String = ""
         NewResult = ddResult.SelectedValue
         If check_entries() Then
@@ -2242,8 +2242,8 @@ Partial Class Admin_Add_Edit_Result
 
     Sub update_player_stats(inStoredProcedure As String)
         Dim strSQL As String
-        Dim myDataReader As OleDbDataReader    'MySqlDataReader
-        Dim myDataReader2 As OleDbDataReader    'MySqlDataReader
+        Dim myDataReader As oledbdatareader    'Myoledbdatareader
+        Dim myDataReader2 As oledbdatareader    'Myoledbdatareader
         Dim tempSeason As String = objGlobals.get_current_season
         inStoredProcedure = objGlobals.CurrentSchema & inStoredProcedure
         'update the home team players
@@ -2269,7 +2269,7 @@ Partial Class Admin_Add_Edit_Result
 
     Sub update_deducted_header()
         Dim strSQL As String
-        Dim myDataReader As OleDbDataReader    'MySqlDataReader
+        Dim myDataReader As oledbdatareader    'Myoledbdatareader
         strSQL = "UPDATE " & objGlobals.CurrentSchema & "vw_fixtures SET home_rolls_won = " & HomeRollsWon & ",away_rolls_won = " & AwayRollsWon
         strSQL = strSQL & ",home_rolls_total= " & HomeRollsTotal & ",away_rolls_total = " & AwayRollsTotal
         strSQL = strSQL & ",home_roll_1 = " & HomeRollTotal1 & ",home_roll_2 = " & HomeRollTotal2 & ",home_roll_3 = " & HomeRollTotal3 & ",home_roll_4 = " & HomeRollTotal4 & ",home_roll_5 = " & HomeRollTotal5
@@ -2295,7 +2295,7 @@ Partial Class Admin_Add_Edit_Result
     Sub update_fixture_details()
         Dim strSQL As String
         Dim strSQL1 As String
-        Dim myDataReader As OleDbDataReader    'MySqlDataReader
+        Dim myDataReader As oledbdatareader    'Myoledbdatareader
         strSQL = "DELETE FROM " & objGlobals.CurrentSchema & "vw_fixtures_detail WHERE fixture_id = " & fixture_id
         myDataReader = objGlobals.SQLSelect(strSQL)
 
@@ -2457,7 +2457,7 @@ Partial Class Admin_Add_Edit_Result
     Protected Sub btnAdd1_Click(sender As Object, e As System.EventArgs) Handles btnAdd1.Click
         'add new player to home team
         Dim strSQL As String
-        Dim myDataReader As OleDbDataReader    'MySqlDataReader
+        Dim myDataReader As oledbdatareader    'Myoledbdatareader
         Dim Found As Boolean = False
         'see if player already exists first
         lblHomeExists.Visible = False
@@ -2521,7 +2521,7 @@ Partial Class Admin_Add_Edit_Result
     Protected Sub btnAdd2_Click(sender As Object, e As System.EventArgs) Handles btnAdd2.Click
         'add new player to Away team
         Dim strSQL As String
-        Dim myDataReader As OleDbDataReader    'MySqlDataReader
+        Dim myDataReader As oledbdatareader    'Myoledbdatareader
         Dim Found As Boolean = False
         lblAwayExists.Visible = False
         'see if player already exists first

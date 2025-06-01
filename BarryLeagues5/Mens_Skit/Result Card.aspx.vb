@@ -50,7 +50,7 @@ Partial Class Mens_Skit_ResultCard
             Call colour_thirties()
             Call colour_high_scores()
             Call colour_totals()
-            Call show_comments
+            Call show_comments()
             imgCard.ImageUrl = "~/Mens_Skit/ResultsCards/" & CompID.ToString & ".jpg"
         Else
             imgCard.Visible = False
@@ -59,7 +59,7 @@ Partial Class Mens_Skit_ResultCard
     End Sub
     Function get_fixture_week() As Integer
         Dim strSQL As String
-        Dim myDataReader As OleDbDataReader
+        Dim myDataReader As oledbdatareader
 
         strSQL = "Select week_number FROM mens_skit.vw_fixtures WHERE fixture_id=" & CompID
         myDataReader = objGlobals.SQLSelect(strSQL)
@@ -69,7 +69,7 @@ Partial Class Mens_Skit_ResultCard
     End Function
     Sub show_comments()
         Dim strSQL As String
-        Dim myDataReader As OleDbDataReader
+        Dim myDataReader As oledbdatareader
         strSQL = "Select comments FROM mens_skit.fixtures_comments WHERE season = '" & objGlobals.current_season & "' AND fixture_id = " & CompID.ToString
         myDataReader = objGlobals.SQLSelect(strSQL)
         While myDataReader.Read()
@@ -78,7 +78,7 @@ Partial Class Mens_Skit_ResultCard
     End Sub
     Sub load_card()
         Dim strSQL As String
-        Dim myDataReader As OleDbDataReader
+        Dim myDataReader As oledbdatareader
 
         dt = New DataTable
 
@@ -128,7 +128,7 @@ Partial Class Mens_Skit_ResultCard
 
     Sub colour_high_scores()
         Dim strSQL As String
-        Dim myDataReader As OleDbDataReader
+        Dim myDataReader As oledbdatareader
         Dim home_high_score As Integer
         Dim away_high_score As Integer
 

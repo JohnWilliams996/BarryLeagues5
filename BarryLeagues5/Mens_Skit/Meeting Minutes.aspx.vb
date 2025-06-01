@@ -19,7 +19,7 @@ Partial Class Mens_Skit_Meeting_Minutes
         objGlobals.CurrentUser = "mens_skit_user"
         objGlobals.CurrentSchema = "mens_skit."
         Dim strSQL As String
-        Dim myDataReader As OleDbDataReader
+        Dim myDataReader As oledbdatareader
         If Not Request.Cookies("lastVisit") Is Nothing Then
             objGlobals.AdminLogin = True
         Else
@@ -46,7 +46,7 @@ Partial Class Mens_Skit_Meeting_Minutes
 
     Protected Sub btnOpenWebsite_Click(sender As Object, e As System.EventArgs) Handles btnOpenWebsite.Click
         Dim strSQL As String
-        Dim myDataReader As OleDbDataReader
+        Dim myDataReader As oledbdatareader
         strSQL = "SELECT filename FROM mens_skit.league_meetings WHERE meeting_date = '" & rbMeetings.SelectedValue & "'"
         myDataReader = objGlobals.SQLSelect(strSQL)
         While myDataReader.Read()
@@ -63,7 +63,7 @@ Partial Class Mens_Skit_Meeting_Minutes
     End Sub
     Sub write_PDF_download(ByVal inFilepath As String)
         Dim strSQL As String
-        Dim myDataReader As OleDbDataReader
+        Dim myDataReader As oledbdatareader
         Dim l_param_in_names(2) As String
         Dim l_param_in_values(2) As String
 
@@ -82,7 +82,7 @@ Partial Class Mens_Skit_Meeting_Minutes
 
     Protected Sub btnOpenPDF_Click(sender As Object, e As EventArgs) Handles btnOpenPDF.Click
         Dim strSQL As String
-        Dim myDataReader As OleDbDataReader
+        Dim myDataReader As oledbdatareader
         Dim PDFfile As String = ""
         strSQL = "SELECT filename FROM mens_skit.league_meetings WHERE meeting_date = '" & rbMeetings.SelectedValue & "'"
         myDataReader = objGlobals.SQLSelect(strSQL)
