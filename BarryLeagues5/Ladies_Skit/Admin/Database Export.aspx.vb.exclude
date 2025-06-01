@@ -1,0 +1,621 @@
+﻿Imports System.IO
+Imports System.Data
+Imports System.Data.OleDb
+Imports System.Windows.Forms
+Imports System.Web.Mail
+'Imports MySql.Data.MySqlClient
+
+
+
+Partial Class Admin_Default
+    Inherits System.Web.UI.Page
+
+    Private objGlobals As New Globals
+    Private SeasonString As String
+
+    Protected Sub btnExportFixtures_Tables_Click(sender As Object, e As System.EventArgs) Handles btnExportFixtures_Tables.Click
+
+        Dim Exported As Boolean = False
+
+        txtSQL.Text = ""
+        lblInfo.Visible = True
+        lblInfo.Text = "Exporting tables ..."
+
+        Dim i As Integer
+        SeasonString = "("
+        For i = 0 To cblSeasons.Items.Count - 1
+            If cblSeasons.Items(i).Selected Then SeasonString = SeasonString + "'" + cblSeasons.Items(i).Text + "',"
+        Next
+        If SeasonString = "(" Then
+            lblInfo.Visible = False
+            txtSQL.Visible = True
+            txtSQL.Text = "NO SEASON SELECTED !!"
+            txtSQL.Font.Size = 14
+            Exit Sub
+        Else
+            SeasonString = Left(SeasonString, Len(SeasonString) - 1) + ")"
+        End If
+
+
+        If cblTables.Items(0).Selected Then Call export_fixtures() : Exported = True
+        If cblTables.Items(1).Selected Then Call export_tables() : Exported = True
+        If cblTables.Items(2).Selected Then Call export_players() : Exported = True
+        If cblTables.Items(3).Selected Then Call export_entries() : Exported = True
+        If cblTables.Items(4).Selected Then Call export_draws() : Exported = True
+        If cblTables.Items(5).Selected Then Call export_tables_week() : Exported = True
+        If cblTables.Items(6).Selected Then Call export_teams() : Exported = True
+        If cblTables.Items(7).Selected Then Call export_fixtures_detail() : Exported = True
+        If cblTables.Items(8).Selected Then Call export_player_stats() : Exported = True
+        If cblTables.Items(9).Selected Then Call export_distribution() : Exported = True
+        If cblTables.Items(10).Selected Then Call export_leagues() : Exported = True
+        If cblTables.Items(11).Selected Then Call export_my_ip_addresses() : Exported = True
+        If cblTables.Items(12).Selected Then Call export_seasons() : Exported = True
+        If cblTables.Items(13).Selected Then Call export_stat_counter() : Exported = True
+        If cblTables.Items(14).Selected Then Call export_weeks() : Exported = True
+        If cblTables.Items(15).Selected Then Call export_current_comps() : Exported = True
+
+
+        If Not Exported Then
+            lblInfo.Visible = False
+            txtSQL.Visible = True
+            txtSQL.Text = "NO TABLE SELECTED !!"
+            txtSQL.Font.Size = 14
+            Exit Sub
+        End If
+
+        txtSQL.Font.Size = 7
+        Dim UKDateTime As Date = objGlobals.LondonDate(DateTime.UtcNow)
+        Dim UKDate As String = Format(UKDateTime.Year, "0000") + Format(UKDateTime.Month, "00") + Format(UKDateTime.Day, "00")
+        Dim UKTime As String = Format(UKDateTime.Hour, "00") & Format(UKDateTime.Minute, "00")
+        txtSQL.Text = txtSQL.Text + "UPDATE mens_skit.last_changed SET date_time_changed = '" & UKDate & UKTime & "'"
+
+        btnExportFixtures_Tables.Visible = False
+        lblInfo.Visible = True
+        txtSQL.Visible = True
+
+        lblInfo.Text = "Export complete"
+
+    End Sub
+
+    Sub send_email(mailRecipient As String, mailAttachment As String)
+        lblInfo.Text = "E-mailing " & mailRecipient
+        Dim UKDateTime As Date = objGlobals.LondonDate(DateTime.UtcNow)
+        Dim UKDate As String = Format(UKDateTime.Day, "00") + "/" + Format(UKDateTime.Month, "00") + "/" + CStr(UKDateTime.Year)
+        Dim UKTime As String = Format(UKDateTime.Hour, "00") & Format(UKDateTime.Minute, "00")
+        Dim mailFrom As String = "barryleagues@barryleagues.co.uk"
+        Dim mailSubject As String = "Web DB Export attached - Updated " & UKDate & "_" & UKTime
+        Dim mailBody As String = "Exported at " & UKDate & "_" & UKTime
+        Dim myMail As New System.Net.Mail.MailMessage(mailFrom, mailRecipient, mailSubject, mailBody)
+        Dim attachment As New System.Net.Mail.Attachment(Server.MapPath(mailAttachment)) 'create the attachment
+        myMail.IsBodyHtml = False
+        myMail.Attachments.Add(attachment)
+
+        Dim MailClient As System.Net.Mail.SmtpClient = New System.Net.Mail.SmtpClient("smtpout.europe.secureserver.net")
+        MailClient.UseDefaultCredentials = False
+        MailClient.Credentials = New System.Net.NetworkCredential("barryleagues@barryleagues.co.uk", "Tallycam106")
+        MailClient.Send(myMail)
+        MailClient.EnableSsl = True
+
+    End Sub
+
+    Sub export_fixtures()
+        Dim SQLline As String
+        Dim strSQL As String
+        Dim myDataReader As OleDbDataReader
+
+        SQLline = "DELETE FROM mens_skit.fixtures WHERE season IN " + SeasonString & vbCrLf
+        txtSQL.Text = txtSQL.Text + SQLline
+
+        strSQL = "SELECT * FROM mens_skit.fixtures WHERE season IN " + SeasonString + " ORDER BY season,fixture_id"
+        myDataReader = objGlobals.SQLSelect(strSQL)
+        While myDataReader.Read()
+            SQLline = "INSERT INTO mens_skit.fixtures VALUES ("
+            SQLline = SQLline & "'" & myDataReader.Item("season") & "',"
+            SQLline = SQLline & myDataReader.Item("fixture_id") & ","
+            SQLline = SQLline & "'" & myDataReader.Item("league") & "',"
+            SQLline = SQLline & myDataReader.Item("week_number") & ","
+            SQLline = SQLline & "'" & myDataReader.Item("fixture_date") & "',"
+            SQLline = SQLline & "'" & myDataReader.Item("home_team") & "',"
+            SQLline = SQLline & "'" & myDataReader.Item("home_team_name") & "',"
+            SQLline = SQLline & "'" & myDataReader.Item("away_team") & "',"
+            SQLline = SQLline & "'" & myDataReader.Item("away_team_name") & "',"
+            SQLline = SQLline & myDataReader.Item("home_points") & ","
+            SQLline = SQLline & myDataReader.Item("away_points") & ","
+            SQLline = SQLline & myDataReader.Item("home_rolls_won") & ","
+            SQLline = SQLline & myDataReader.Item("away_rolls_won") & ","
+            SQLline = SQLline & myDataReader.Item("home_rolls_total") & ","
+            SQLline = SQLline & myDataReader.Item("away_rolls_total") & ","
+            SQLline = SQLline & "'" & Format(myDataReader.Item("fixture_calendar"), "yyyy-MM-dd") & " 00:00:00.000',"
+            SQLline = SQLline & "'" & myDataReader.Item("venue") & "',"
+            SQLline = SQLline & "'" & myDataReader.Item("home_result") & "',"
+            SQLline = SQLline & "'" & myDataReader.Item("away_result") & "',"
+            SQLline = SQLline & "'" & myDataReader.Item("home_rolls_result") & "',"
+            SQLline = SQLline & "'" & myDataReader.Item("away_rolls_result") & "',"
+            SQLline = SQLline & myDataReader.Item("home_roll_1") & ","
+            SQLline = SQLline & myDataReader.Item("home_roll_2") & ","
+            SQLline = SQLline & myDataReader.Item("home_roll_3") & ","
+            SQLline = SQLline & myDataReader.Item("home_roll_4") & ","
+            SQLline = SQLline & myDataReader.Item("home_roll_5") & ","
+            SQLline = SQLline & myDataReader.Item("away_roll_1") & ","
+            SQLline = SQLline & myDataReader.Item("away_roll_2") & ","
+            SQLline = SQLline & myDataReader.Item("away_roll_3") & ","
+            SQLline = SQLline & myDataReader.Item("away_roll_4") & ","
+            SQLline = SQLline & myDataReader.Item("away_roll_5") & ","
+            SQLline = SQLline & myDataReader.Item("status") & ")" & vbCrLf
+            txtSQL.Text = txtSQL.Text + SQLline
+        End While
+        objGlobals.close_connection()
+    End Sub
+
+    Sub export_fixtures_detail()
+        Dim SQLline As String
+        Dim strSQL As String
+        Dim myDataReader As OleDbDataReader
+
+        SQLline = "DELETE FROM mens_skit.fixtures_detail WHERE season IN " + SeasonString & vbCrLf
+        txtSQL.Text = txtSQL.Text + SQLline
+
+        strSQL = "SELECT * FROM mens_skit.fixtures_detail WHERE season IN " + SeasonString + " ORDER BY season,fixture_id" & vbCrLf
+        myDataReader = objGlobals.SQLSelect(strSQL)
+        While myDataReader.Read()
+            SQLline = "INSERT INTO mens_skit.fixtures_detail VALUES ("
+            SQLline = SQLline & "'" & myDataReader.Item("season") & "',"
+            SQLline = SQLline & myDataReader.Item("fixture_id") & ","
+            SQLline = SQLline & "'" & myDataReader.Item("league") & "',"
+            SQLline = SQLline & "'" & myDataReader.Item("fixture_date") & "',"
+            SQLline = SQLline & "'" & Format(myDataReader.Item("fixture_calendar"), "yyyy-MM-dd") & " 00:00:00.000',"
+            SQLline = SQLline & myDataReader.Item("week_number") & ","
+            SQLline = SQLline & myDataReader.Item("match") & ","
+            SQLline = SQLline & "'" & myDataReader.Item("home_team") & "',"
+            SQLline = SQLline & "'" & myDataReader.Item("home_player") & "',"
+            SQLline = SQLline & myDataReader.Item("home_points") & ","
+            SQLline = SQLline & "'" & myDataReader.Item("away_team") & "',"
+            SQLline = SQLline & "'" & myDataReader.Item("away_player") & "',"
+            SQLline = SQLline & myDataReader.Item("away_points") & ","
+            SQLline = SQLline & myDataReader.Item("away_thirties") & ")" & vbCrLf
+            txtSQL.Text = txtSQL.Text + SQLline
+        End While
+        objGlobals.close_connection()
+    End Sub
+
+    Sub export_tables()
+        Dim SQLline As String
+        Dim strSQL As String
+        Dim myDataReader As OleDbDataReader
+
+        SQLline = "DELETE FROM mens_skit.tables WHERE season IN " & SeasonString & vbCrLf
+        txtSQL.Text = txtSQL.Text + SQLline
+        strSQL = "SELECT * FROM mens_skit.tables WHERE season IN " & SeasonString & " ORDER BY season,league,pts DESC,pld,team"
+        myDataReader = objGlobals.SQLSelect(strSQL)
+        While myDataReader.Read()
+            SQLline = "INSERT INTO mens_skit.tables VALUES ("
+            SQLline = SQLline & "'" & myDataReader.Item("season") & "',"
+            SQLline = SQLline & "'" & myDataReader.Item("league") & "',"
+            SQLline = SQLline & myDataReader.Item("pos") & ","
+            SQLline = SQLline & "'" & myDataReader.Item("team") & "',"
+            SQLline = SQLline & myDataReader.Item("pld") & ","
+            SQLline = SQLline & myDataReader.Item("w") & ","
+            SQLline = SQLline & myDataReader.Item("d") & ","
+            SQLline = SQLline & myDataReader.Item("l") & ","
+            SQLline = SQLline & myDataReader.Item("pts") & ","
+            SQLline = SQLline & myDataReader.Item("rolls") & ","
+            SQLline = SQLline & myDataReader.Item("Pts_Rolls_Pins") & ")" & vbCrLf
+            txtSQL.Text = txtSQL.Text + SQLline
+        End While
+        objGlobals.close_connection()
+    End Sub
+
+    Sub export_players()
+        Dim SQLline As String
+        Dim strSQL As String
+        Dim myDataReader As OleDbDataReader
+
+        SQLline = "DELETE FROM mens_skit.players WHERE season IN " & SeasonString & vbCrLf
+        txtSQL.Text = txtSQL.Text + SQLline
+        strSQL = "SELECT * FROM mens_skit.players WHERE season IN " & SeasonString & " ORDER BY season,league,team,Player"
+        myDataReader = objGlobals.SQLSelect(strSQL)
+        While myDataReader.Read()
+            SQLline = "INSERT INTO mens_skit.players VALUES ("
+            SQLline = SQLline & "'" & myDataReader.Item("season") & "',"
+            SQLline = SQLline & "'" & myDataReader.Item("league") & "',"
+            SQLline = SQLline & "'" & myDataReader.Item("team") & "',"
+            SQLline = SQLline & "'" & myDataReader.Item("player") & "',"
+            If Not IsDBNull(myDataReader.Item("phone")) Then
+                SQLline = SQLline & "'" & myDataReader.Item("phone") & "')" & vbCrLf
+            Else
+                SQLline = SQLline & "NULL" & ")" & vbCrLf
+            End If
+            txtSQL.Text = txtSQL.Text + SQLline
+        End While
+        objGlobals.close_connection()
+    End Sub
+
+    Sub export_draws()
+        Dim SQLline As String
+        Dim strSQL As String
+        Dim myDataReader As OleDbDataReader
+
+        SQLline = "DELETE FROM clubs.draws WHERE season IN " & SeasonString & vbCrLf
+        txtSQL.Text = txtSQL.Text + SQLline
+        strSQL = "SELECT * FROM clubs.draws WHERE season IN " & SeasonString & " ORDER BY season,competition"
+        myDataReader = objGlobals.SQLSelect(strSQL)
+        While myDataReader.Read()
+            SQLline = "INSERT INTO clubs.draws VALUES ("
+            SQLline = SQLline & "'" & myDataReader.Item("season") & "',"
+            SQLline = SQLline & "'" & myDataReader.Item("competition") & "',"
+            SQLline = SQLline & myDataReader.Item("round") & ","
+            SQLline = SQLline & myDataReader.Item("match_no") & ","
+            SQLline = SQLline & "'" & myDataReader.Item("home_draw") & "',"
+            SQLline = SQLline & "'" & myDataReader.Item("away_draw") & "',"
+            SQLline = SQLline & "'" & myDataReader.Item("prev_home_draw1") & "',"
+            SQLline = SQLline & "'" & myDataReader.Item("prev_away_draw1") & "',"
+            SQLline = SQLline & "'" & myDataReader.Item("prev_home_draw2") & "',"
+            SQLline = SQLline & "'" & myDataReader.Item("prev_away_draw2") & "',"
+            SQLline = SQLline & "'" & myDataReader.Item("next_match_no") & "',"
+            SQLline = SQLline & "'" & myDataReader.Item("result") & "',"
+            If myDataReader.Item("updated") Then
+                SQLline = SQLline & "1,"
+            Else
+                SQLline = SQLline & "0,"
+            End If
+            SQLline = SQLline & myDataReader.Item("update_grid") & ","
+            SQLline = SQLline & myDataReader.Item("update_row") & ","
+            SQLline = SQLline & "'" & myDataReader.Item("info") & "')" & vbCrLf
+            txtSQL.Text = txtSQL.Text + SQLline
+        End While
+        objGlobals.close_connection()
+
+    End Sub
+
+    Sub export_entries()
+        Dim SQLline As String
+        Dim strSQL As String
+        Dim myDataReader As OleDbDataReader
+
+        SQLline = "DELETE FROM clubs.entries WHERE season IN " & SeasonString & vbCrLf
+        txtSQL.Text = txtSQL.Text + SQLline
+        strSQL = "SELECT * FROM clubs.entries WHERE season IN " & SeasonString & " ORDER BY season,competition"
+        myDataReader = objGlobals.SQLSelect(strSQL)
+        While myDataReader.Read()
+            SQLline = "INSERT INTO clubs.entries VALUES ("
+            SQLline = SQLline & "'" & myDataReader.Item("season") & "',"
+            SQLline = SQLline & "'" & myDataReader.Item("competition") & "',"
+            SQLline = SQLline & "'" & myDataReader.Item("draw_no") & "',"
+            SQLline = SQLline & "'" & myDataReader.Item("player") & "',"
+            SQLline = SQLline & "'" & myDataReader.Item("team") & "',"
+            SQLline = SQLline & "'" & myDataReader.Item("league") & "',"
+            SQLline = SQLline & myDataReader.Item("cost") & ","
+            SQLline = SQLline & "'" & myDataReader.Item("player_phone") & "')" & vbCrLf
+            txtSQL.Text = txtSQL.Text + SQLline
+        End While
+        objGlobals.close_connection()
+
+    End Sub
+
+    Sub export_tables_week()
+        Dim SQLline As String
+        Dim strSQL As String
+        Dim myDataReader As OleDbDataReader
+
+        SQLline = "DELETE FROM mens_skit.tables_week WHERE season IN " & SeasonString & vbCrLf
+        txtSQL.Text = txtSQL.Text + SQLline
+        strSQL = "SELECT * FROM mens_skit.tables_week WHERE season IN " & SeasonString & " ORDER BY season,league,week,pos"
+        myDataReader = objGlobals.SQLSelect(strSQL)
+        While myDataReader.Read()
+            SQLline = "INSERT INTO mens_skit.tables_week VALUES ("
+            SQLline = SQLline & "'" & myDataReader.Item("season") & "',"
+            SQLline = SQLline & "'" & myDataReader.Item("league") & "',"
+            SQLline = SQLline & myDataReader.Item("week") & ","
+            SQLline = SQLline & myDataReader.Item("pos") & ","
+            SQLline = SQLline & "'" & myDataReader.Item("team") & "',"
+            SQLline = SQLline & myDataReader.Item("pts") & ","
+            SQLline = SQLline & myDataReader.Item("rolls") & ","
+            SQLline = SQLline & myDataReader.Item("Pts_Rolls_Pins") & ")" & vbCrLf
+            txtSQL.Text = txtSQL.Text + SQLline
+        End While
+        objGlobals.close_connection()
+    End Sub
+
+    Sub export_teams()
+        Dim SQLline As String
+        Dim strSQL As String
+        Dim myDataReader As OleDbDataReader
+
+        SQLline = "DELETE FROM mens_skit.teams WHERE season IN " & SeasonString & vbCrLf
+        txtSQL.Text = txtSQL.Text + SQLline
+        strSQL = "SELECT * FROM mens_skit.teams WHERE season IN " & SeasonString & vbCrLf
+        myDataReader = objGlobals.SQLSelect(strSQL)
+        While myDataReader.Read()
+            SQLline = "INSERT INTO mens_skit.teams VALUES ("
+            SQLline = SQLline & "'" & myDataReader.Item("season") & "',"
+            SQLline = SQLline & "'" & myDataReader.Item("league") & "',"
+            SQLline = SQLline & myDataReader.Item("team_number") & ","
+            SQLline = SQLline & "'" & myDataReader.Item("long_name") & "',"
+            SQLline = SQLline & "'" & myDataReader.Item("home_night") & "',"
+            SQLline = SQLline & "'" & myDataReader.Item("phone_number") & "',"
+            SQLline = SQLline & "'" & myDataReader.Item("venue") & "',"
+            SQLline = SQLline & "'" & myDataReader.Item("invoice_club") & "',"
+            SQLline = SQLline & "'" & myDataReader.Item("short_name") & "',"
+            Select Case myDataReader.Item("cup_flag")
+                Case "True"
+                    SQLline = SQLline & "1)" & vbCrLf
+                Case "False"
+                    SQLline = SQLline & "0)" & vbCrLf
+            End Select
+            txtSQL.Text = txtSQL.Text + SQLline
+        End While
+        objGlobals.close_connection()
+    End Sub
+
+    Sub export_player_stats()
+        Dim SQLline As String
+        Dim strSQL As String
+        Dim myDataReader As OleDbDataReader
+
+        SQLline = "DELETE FROM mens_skit.player_stats WHERE season IN " & SeasonString & vbCrLf
+        txtSQL.Text = txtSQL.Text + SQLline
+        strSQL = "SELECT * FROM mens_skit.player_stats WHERE season IN " & SeasonString & vbCrLf
+        myDataReader = objGlobals.SQLSelect(strSQL)
+        While myDataReader.Read()
+            SQLline = "INSERT INTO mens_skit.player_stats VALUES ("
+            SQLline = SQLline & "'" & myDataReader.Item("season") & "',"
+            SQLline = SQLline & "'" & myDataReader.Item("league") & "',"
+            SQLline = SQLline & "'" & myDataReader.Item("team") & "',"
+            SQLline = SQLline & "'" & myDataReader.Item("player") & "',"
+            SQLline = SQLline & myDataReader.Item("total_team_played") & ","
+            SQLline = SQLline & myDataReader.Item("total_played") & ","
+            SQLline = SQLline & myDataReader.Item("total_score") & ","
+            SQLline = SQLline & myDataReader.Item("average") & ","
+            SQLline = SQLline & myDataReader.Item("highest_score") & ","
+            SQLline = SQLline & myDataReader.Item("home_played") & ","
+            SQLline = SQLline & myDataReader.Item("home_score") & ","
+            SQLline = SQLline & myDataReader.Item("home_average") & ","
+            SQLline = SQLline & myDataReader.Item("home_highest_score") & ","
+            SQLline = SQLline & myDataReader.Item("away_played") & ","
+            SQLline = SQLline & myDataReader.Item("away_score") & ","
+            SQLline = SQLline & myDataReader.Item("away_average") & ","
+            SQLline = SQLline & myDataReader.Item("away_highest_score") & ","
+            SQLline = SQLline & myDataReader.Item("away_thirties") & ","
+            SQLline = SQLline & myDataReader.Item("league_pos") & ","
+            SQLline = SQLline & myDataReader.Item("team_pos") & ","
+            SQLline = SQLline & "'" & myDataReader.Item("last_six") & "')" & vbCrLf
+            txtSQL.Text = txtSQL.Text + SQLline
+        End While
+        objGlobals.close_connection()
+    End Sub
+
+    Sub export_distribution()
+        Dim SQLline As String
+        Dim strSQL As String
+        Dim myDataReader As OleDbDataReader
+
+        SQLline = "DELETE FROM mens_skit.distribution" & vbCrLf
+        txtSQL.Text = txtSQL.Text + SQLline
+        strSQL = "SELECT * FROM mens_skit.distribution" & vbCrLf
+        myDataReader = objGlobals.SQLSelect(strSQL)
+        While myDataReader.Read()
+            SQLline = "INSERT INTO mens_skit.distribution VALUES ("
+            SQLline = SQLline & "'" & myDataReader.Item("distribution_group") & "',"
+            SQLline = SQLline & myDataReader.Item("group_order") & ","
+            SQLline = SQLline & "'" & myDataReader.Item("sport") & "',"
+            SQLline = SQLline & "'" & myDataReader.Item("club") & "',"
+            SQLline = SQLline & myDataReader.Item("team_count") & ","
+            If (Not IsDBNull(myDataReader.Item("team1"))) Then
+                SQLline = SQLline & "'" & myDataReader.Item("team1") & "',"
+            Else
+                SQLline = SQLline & "NULL,"
+            End If
+            If (Not IsDBNull(myDataReader.Item("team2"))) Then
+                SQLline = SQLline & "'" & myDataReader.Item("team2") & "',"
+            Else
+                SQLline = SQLline & "NULL,"
+            End If
+            If (Not IsDBNull(myDataReader.Item("team3"))) Then
+                SQLline = SQLline & "'" & myDataReader.Item("team3") & "',"
+            Else
+                SQLline = SQLline & "NULL,"
+            End If
+            If (Not IsDBNull(myDataReader.Item("team4"))) Then
+                SQLline = SQLline & "'" & myDataReader.Item("team4") & "',"
+            Else
+                SQLline = SQLline & "NULL,"
+            End If
+            If (Not IsDBNull(myDataReader.Item("team5"))) Then
+                SQLline = SQLline & "'" & myDataReader.Item("team5") & "')" & vbCrLf
+            Else
+                SQLline = SQLline & "NULL)" & vbCrLf
+            End If
+
+            txtSQL.Text = txtSQL.Text + SQLline
+        End While
+        objGlobals.close_connection()
+    End Sub
+
+    Sub export_leagues()
+        Dim SQLline As String
+        Dim strSQL As String
+        Dim myDataReader As OleDbDataReader
+
+        SQLline = "DELETE FROM mens_skit.leagues WHERE season IN " & SeasonString & vbCrLf
+        txtSQL.Text = txtSQL.Text + SQLline
+        strSQL = "SELECT * FROM mens_skit.leagues WHERE season IN " & SeasonString & vbCrLf
+        myDataReader = objGlobals.SQLSelect(strSQL)
+        While myDataReader.Read()
+            SQLline = "INSERT INTO mens_skit.leagues VALUES ("
+            SQLline = SQLline & "'" & myDataReader.Item("season") & "',"
+            SQLline = SQLline & "'" & myDataReader.Item("league") & "',"
+            SQLline = SQLline & "'" & myDataReader.Item("show_champions") & "')" & vbCrLf
+            txtSQL.Text = txtSQL.Text + SQLline
+        End While
+        objGlobals.close_connection()
+    End Sub
+
+    Sub export_my_ip_addresses()
+        Dim SQLline As String
+        Dim strSQL As String
+        Dim myDataReader As OleDbDataReader
+
+        SQLline = "DELETE FROM mens_skit.my_ip_addresses" & vbCrLf
+        txtSQL.Text = txtSQL.Text + SQLline
+        strSQL = "SELECT * FROM mens_skit.my_ip_addresses " & vbCrLf
+        myDataReader = objGlobals.SQLSelect(strSQL)
+        While myDataReader.Read()
+            SQLline = "INSERT INTO mens_skit.my_ip_addresses VALUES ("
+            SQLline = SQLline & "'" & myDataReader.Item("ip_address") & "',"
+            SQLline = SQLline & "'" & myDataReader.Item("location") & "')" & vbCrLf
+            txtSQL.Text = txtSQL.Text + SQLline
+        End While
+        objGlobals.close_connection()
+    End Sub
+
+    Sub export_seasons()
+        Dim SQLline As String
+        Dim strSQL As String
+        Dim myDataReader As OleDbDataReader
+
+        SQLline = "DELETE FROM mens_skit.seasons" & vbCrLf
+        txtSQL.Text = txtSQL.Text + SQLline
+        strSQL = "SELECT * FROM mens_skit.seasons " & vbCrLf
+        myDataReader = objGlobals.SQLSelect(strSQL)
+        While myDataReader.Read()
+            SQLline = "INSERT INTO mens_skit.seasons VALUES ("
+            SQLline = SQLline & "'" & myDataReader.Item("current_season") & "',"
+            SQLline = SQLline & "'" & myDataReader.Item("last_season") & "',"
+            SQLline = SQLline & "'" & myDataReader.Item("next_season") & "')" & vbCrLf
+            txtSQL.Text = txtSQL.Text + SQLline
+        End While
+        objGlobals.close_connection()
+    End Sub
+
+    Sub export_stat_counter()
+        Dim SQLline As String
+        Dim strSQL As String
+        Dim myDataReader As OleDbDataReader
+
+        SQLline = "DELETE FROM mens_skit.stat_counter WHERE season IN " & SeasonString & vbCrLf
+        txtSQL.Text = txtSQL.Text + SQLline
+        strSQL = "SELECT * FROM mens_skit.stat_counter WHERE season IN " & SeasonString & vbCrLf
+        myDataReader = objGlobals.SQLSelect(strSQL)
+        While myDataReader.Read()
+            SQLline = "INSERT INTO mens_skit.stat_counter VALUES ("
+            SQLline = SQLline & "'" & myDataReader.Item("season") & "',"
+            SQLline = SQLline & "'" & myDataReader.Item("stat_date") & "',"
+            SQLline = SQLline & myDataReader.Item("calendar_week") & ","
+            SQLline = SQLline & myDataReader.Item("hits") & ")" & vbCrLf
+            txtSQL.Text = txtSQL.Text + SQLline
+        End While
+        objGlobals.close_connection()
+    End Sub
+
+    Sub export_weeks()
+        Dim SQLline As String
+        Dim strSQL As String
+        Dim myDataReader As OleDbDataReader
+
+        SQLline = "DELETE FROM mens_skit.weeks WHERE season IN " & SeasonString & vbCrLf
+        txtSQL.Text = txtSQL.Text + SQLline
+        strSQL = "SELECT season,week_number,week_commences FROM mens_skit.weeks WHERE season IN " & SeasonString & vbCrLf
+        myDataReader = objGlobals.SQLSelect(strSQL)
+        While myDataReader.Read()
+            SQLline = "INSERT INTO mens_skit.weeks VALUES ("
+            SQLline = SQLline & "'" & myDataReader.Item("season") & "',"
+            SQLline = SQLline & myDataReader.Item("week_number") & ","
+            SQLline = SQLline & "'" & Format(myDataReader.Item("week_commences"), "yyyy-MM-dd") & " 00:00:00.000')" & vbCrLf
+            txtSQL.Text = txtSQL.Text + SQLline
+        End While
+        objGlobals.close_connection()
+    End Sub
+
+    Sub export_current_comps()
+        Dim SQLline As String
+        Dim strSQL As String
+        Dim myDataReader As OleDbDataReader
+
+        SQLline = "DELETE FROM mens_skit.current_comps" & vbCrLf
+        txtSQL.Text = txtSQL.Text + SQLline
+        strSQL = "SELECT * FROM mens_skit.current_comps ORDER BY league"
+        myDataReader = objGlobals.SQLSelect(strSQL)
+        While myDataReader.Read()
+            SQLline = "INSERT INTO mens_skit.current_comps VALUES ("
+            SQLline = SQLline & "'" & myDataReader.Item("league") & "',"
+            SQLline = SQLline & "'" & myDataReader.Item("played_by_1") & "',"
+            If IsDBNull(myDataReader.Item("played_by_2")) Then
+                SQLline = SQLline & "NULL,"
+            Else
+                SQLline = SQLline & "'" & myDataReader.Item("played_by_2") & "',"
+            End If
+            SQLline = SQLline & "'" & myDataReader.Item("text") & "',"
+            SQLline = SQLline & "'" & myDataReader.Item("url") & "',"
+            SQLline = SQLline & "'" & myDataReader.Item("comp") & "')" & vbCrLf
+            txtSQL.Text = txtSQL.Text + SQLline
+        End While
+        objGlobals.close_connection()
+
+    End Sub
+    Protected Sub Page_Load(sender As Object, e As System.EventArgs) Handles Me.Load
+        'Call objGlobals.open_connection("mens_skit")
+        objGlobals.CurrentUser = "mens_skit_user"
+        objGlobals.CurrentSchema = "mens_skit."
+        Dim strSQL As String
+        Dim myDataReader As OleDbDataReader
+        Dim SeasonCount As Integer = -1
+
+        If Not Request.Cookies("lastVisit") Is Nothing Then
+            objGlobals.AdminLogin = True
+        Else
+            cblSeasons.Visible = False
+            cblComps.Visible = False
+            cblTables.Visible = False
+            txtSQL.Text = "NOT AUTHORIZED"
+            txtSQL.Enabled = False
+            txtSQL.Visible = True
+            btnExportFixtures_Tables.Visible = False
+            objGlobals.AdminLogin = False
+            Call objGlobals.store_page("ATTACK FROM " & Request.Url.OriginalString, objGlobals.AdminLogin)
+            Exit Sub
+        End If
+        If Not IsPostBack Then
+            Call objGlobals.store_page(Request.Url.OriginalString, objGlobals.AdminLogin)
+            lblInfo.Visible = False
+
+            cblSeasons.ClearSelection()
+            strSQL = "SELECT DISTINCT(season) FROM mens_skit.leagues"
+            myDataReader = objGlobals.SQLSelect(strSQL)
+            While myDataReader.Read()
+                SeasonCount = SeasonCount + 1
+                cblSeasons.Items.Add(myDataReader.Item("season"))
+                If myDataReader.Item("season") = objGlobals.current_season Then
+                    cblSeasons.Items(SeasonCount).Selected = True
+                Else
+                    cblSeasons.Items(SeasonCount).Selected = False
+                End If
+            End While
+
+            cblTables.ClearSelection()
+
+            cblTables.Items.Add("fixtures") : cblTables.Items(0).Selected = True
+            cblTables.Items.Add("tables") : cblTables.Items(1).Selected = True
+            cblTables.Items.Add("players") : cblTables.Items(2).Selected = True
+            cblTables.Items.Add("entries") : cblTables.Items(3).Selected = False
+            cblTables.Items.Add("draws") : cblTables.Items(4).Selected = False
+            cblTables.Items.Add("tables_week") : cblTables.Items(5).Selected = False
+            cblTables.Items.Add("teams") : cblTables.Items(6).Selected = False
+            cblTables.Items.Add("fixtures_detail") : cblTables.Items(7).Selected = True
+            cblTables.Items.Add("player_stats") : cblTables.Items(8).Selected = True
+            cblTables.Items.Add("distribution") : cblTables.Items(9).Selected = False
+            cblTables.Items.Add("leagues") : cblTables.Items(10).Selected = False
+            cblTables.Items.Add("my_id_addresses") : cblTables.Items(11).Selected = False
+            cblTables.Items.Add("seasons") : cblTables.Items(12).Selected = False
+            cblTables.Items.Add("stat_counter") : cblTables.Items(13).Selected = False
+            cblTables.Items.Add("weeks") : cblTables.Items(14).Selected = False
+            cblTables.Items.Add("current_comps") : cblTables.Items(15).Selected = False
+
+        End If
+    End Sub
+
+    Private Sub STAThreadAttribute()
+        Throw New NotImplementedException
+    End Sub
+
+
+End Class

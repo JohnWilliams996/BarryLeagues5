@@ -1,0 +1,53 @@
+﻿<%@ Page Title="" Language="VB" MasterPageFile="~/Mens_Skit/MasterPage.master" AutoEventWireup="false" CodeFile="Database Export.aspx.vb" Inherits="Admin_Default" %>
+
+
+
+<asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
+
+
+
+</asp:Content>
+
+
+<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
+
+<script type="text/javascript" language="javascript">
+
+    function test() {
+        var SQLvalue = document.getElementById("ContentPlaceHolder1_txtSQL").value;
+        alert(SQLvalue);
+        window.clipboardData.setData("Text", SQLvalue);
+    }
+
+</script>
+
+    <asp:CheckBoxList ID="cblSeasons" runat="server" ForeColor="White">
+    </asp:CheckBoxList>
+
+    <br />
+
+    <asp:CheckBoxList ID="cblTables" runat="server" ForeColor="White">
+    </asp:CheckBoxList>
+
+    <br />
+
+    <asp:CheckBoxList ID="cblComps" runat="server" ForeColor="White">
+    </asp:CheckBoxList>
+
+    <br />
+
+    <asp:Button ID="btnExportFixtures_Tables" runat="server" 
+        Text="Export Selected Tables" Font-Size="Medium" />
+
+
+    <asp:Label ID="lblInfo" runat="server" Font-Size="Medium" ForeColor="White" 
+        Text="Label">
+    </asp:Label>
+
+
+    <asp:TextBox ID="txtSQL" runat="server" Height="500px" TextMode="MultiLine" 
+        Visible="False" Width="1008px" Font-Size="Xx-Small" BackColor="Black" 
+        BorderStyle="Solid" ForeColor="White"></asp:TextBox>
+
+
+</asp:Content>

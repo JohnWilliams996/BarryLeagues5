@@ -1,0 +1,414 @@
+<%@ Master Language="VB" Debug="true" CodeFile="MasterPage.master.vb" Inherits="MasterPage" %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head id="Head1" runat="server">
+    <link href="Main.css" rel="stylesheet" type="text/css" />
+    <title>
+    </title>
+    <asp:ContentPlaceHolder ID="head" runat="server">
+
+    </asp:ContentPlaceHolder>
+    
+    <style type="text/css">
+
+    a:link {text-decoration: none }
+    a:active {text-decoration: none }
+    a:visited {text-decoration: none }
+    a:hover {text-decoration: underline }
+
+    </style>
+    
+    <style type="text/css">
+
+        .header
+        {
+            width: 1100px;
+        }
+        .style1
+        {
+            text-align: center;
+            font-family: Arial;
+            font-weight: normal;
+        }
+        .updated
+        {
+            color: #339966;
+        }
+        .style2
+        {
+            color: #FFFFFF;
+            font-family: Arial;
+        }
+        .main
+        {
+            width: 1232px;
+        }
+        .footer
+        {
+            margin-top:770PX;
+            height: 46px;
+            color: #FFFFFF;
+        }
+        .style4
+        {
+            width: 100%;
+        }
+        .style5
+        {
+            width: 346px;
+            font-family: Arial;
+        }
+        .style6
+        {
+            width: 307px;
+        }
+        .style7
+        {
+            width: 400px;
+        }
+        .gv
+        {}
+        </style>
+</head>
+
+<body bgcolor="#333333">
+    <form id="form2" runat="server">
+    <div class="page">
+
+
+        <div class="header">
+            <div class="Title">
+                <h1 style="background-color: #FFCC00; left:100px; width:1250px;" 
+                    class="style1">
+                    BARRY &amp; DISTRICT LADIES 
+                    SKITTLES LEAGUE
+                </h1>
+            </div>
+ 
+            <div id="divLastUpdated">
+                <span class="style2">&nbsp;&nbsp;<asp:Label runat="server" 
+                    Font-Names="Arial" Text="Last Updated : " 
+                    ID="litLastUpdated" BackColor="#1B1B1B" ForeColor="#E4BB18">
+                </asp:Label>
+                <asp:Label ID="LastUpdateLbl" runat="server" BackColor="#FFCC00" 
+                    ForeColor="Black" Text="Label">
+                </asp:Label>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<asp:Label ID="litSeason" 
+                    runat="server" Text="Season :" BackColor="#1B1B1B" ForeColor="#E4BB18">
+                </asp:Label>
+                &nbsp;<asp:Label ID="SeasonLbl" runat="server" BackColor="#FFCC00" 
+                    ForeColor="Black" Text="Label">
+                </asp:Label>
+                <asp:Button ID="btnAdmin" runat="server" BackColor="#333333" BorderStyle="None" 
+                    ForeColor="#333333" Width="29px" style="height: 22px" />
+                <asp:Label runat="server" 
+                    Font-Names="Arial" Text="Admin Password : " 
+                    ID="lblAdmin" BackColor="#1B1B1B" ForeColor="#E4BB18"></asp:Label>
+                <asp:TextBox ID="txtPassword" runat="server" BackColor="#FFCC00" 
+                    BorderStyle="None" Font-Names="Arial" Font-Size="14px" ForeColor="Black" 
+                    Height="20px" TextMode="Password" Width="81px">password
+                </asp:TextBox>
+                 <asp:Button ID="btnGo" runat="server" BackColor="#333333" BorderStyle="None" 
+                    ForeColor="#E4BB18" Width="29px" Font-Size="14px" Text="Go" 
+                    style="height: 22px" />
+                &nbsp;
+                 <asp:Button ID="btnCancel" runat="server" BackColor="#333333" BorderStyle="None" 
+                    ForeColor="#E4BB18" Width="53px" Font-Size="14px" Text="Cancel" />
+                <br />
+                <br />
+                </span>
+            </div>
+        </div>
+
+        <div class="clearboth">
+        </div>
+
+
+        <div id="divMenu">
+            <table cellpadding="1" cellspacing="0">
+                <tr valign="top">
+                   <td rowspan="2">
+                        <asp:HyperLink ID="ChangeLeagueHL" runat="server" backcolor = "Black"
+                            BorderColor="Silver" BorderStyle="Solid" Font-Bold="False" ForeColor="Cyan" 
+                            NavigateUrl="~/Default.aspx" 
+                            style="text-align: center; font-size:medium" Width="125px" 
+                            Font-Names="Arial" Height="49px">CHANGE LEAGUE   
+                        </asp:HyperLink>
+                    </td>
+                    <td rowspan="2">
+                        <asp:HyperLink ID="HomeHL" runat="server" backcolor = "Red"
+                            BorderColor="Silver" BorderStyle="Solid" Font-Bold="True" ForeColor="Black" 
+                            NavigateUrl="~/Clubs/Default.aspx?Week=0" 
+                            style="text-align: center; font-size:x-large" Width="125px" 
+                            Font-Names="Arial" Height="49px">HOME    
+                        </asp:HyperLink>
+                    </td>
+                    <td rowspan="2">                    
+                        <asp:HyperLink ID="StatsHL" runat="server" BackColor="#99CCFF" 
+                            BorderColor="Silver" BorderStyle="Solid" Font-Bold="True" ForeColor="Black" 
+                            NavigateUrl="~/Ladies_Skit/Stats.aspx"
+                            style="text-align: center; font-size: x-large" Width="125px" 
+                            Font-Names="Arial" Height="49px">STATS
+                        </asp:HyperLink>
+                    </td>
+                     <td colspan="2">
+                        <asp:HyperLink ID="Division1HL" runat="server" BackColor="#6699FF" 
+                            BorderColor="Silver" BorderStyle="Solid" Font-Bold="True" ForeColor="Black" 
+                            NavigateUrl="~/Ladies_Skit/League Tables.aspx?League=DIVISION 1"
+                            style="text-align: center; font-size: small" Width="128px" 
+                            Font-Names="Arial" Height="22px">DIVISION 1
+                        </asp:HyperLink>
+                    </td>
+                    <td colspan="2">
+                        <asp:HyperLink ID="Division2HL" runat="server" BackColor="#6699FF" 
+                            BorderColor="Silver" BorderStyle="Solid" Font-Bold="True" ForeColor="Black" 
+                            NavigateUrl="~/Ladies_Skit/League Tables.aspx?League=DIVISION 2"
+                            style="text-align: center; font-size: small" Width="128px" 
+                            Font-Names="Arial" Height="22px">DIVISION 2
+                        </asp:HyperLink>
+                    </td>
+                    <td colspan="2">
+                       <asp:HyperLink ID="Division3HL" runat="server" BackColor="#6699FF" 
+                            BorderColor="Silver" BorderStyle="Solid" Font-Bold="True" ForeColor="Black" 
+                            NavigateUrl="~/Ladies_Skit/League Tables.aspx?League=DIVISION 3"
+                            style="text-align: center; font-size: small" Width="128px"
+                            Font-Names="Arial" Height="22px">DIVISION 3
+                        </asp:HyperLink>
+                   </td>
+                   <td rowspan="2">
+                        <asp:Button ID="btnTeams" runat="server" BackColor="Black" 
+                            BorderColor="Silver" BorderStyle="Solid" 
+                            Font-Bold="False" ForeColor="Cyan" 
+                            style="text-align: center; font-size: Medium;" Width="128px" 
+                            Font-Names="Arial" Height="55px" Text="MY TEAM" />                        
+                   </td>
+                </tr>
+
+                <tr>
+                     <td>
+                        <asp:HyperLink ID="Division1LeagueHL" runat="server" BackColor="#6699FF" 
+                            BorderColor="Silver" BorderStyle="Solid" Font-Bold="True" ForeColor="Black" 
+                            NavigateUrl="~/Ladies_Skit/League Tables.aspx?League=DIVISION 1" 
+                            style="text-align: center; font-size: small" Width="60px" 
+                            Font-Names="Arial" Height="19px" >TABLE
+                        </asp:HyperLink>
+                    </td>
+                    <td>
+                        <asp:HyperLink ID="Division1StatsHL" runat="server" BackColor="#6699FF" 
+                            BorderColor="Silver" BorderStyle="Solid" Font-Bold="True" ForeColor="Black" 
+                            NavigateUrl="~/Ladies_Skit/Stats.aspx?League=DIVISION 1" 
+                            style="text-align: center; font-size: small" Width="60px" 
+                            Font-Names="Arial" Height="19px" >STATS
+                        </asp:HyperLink>
+                    </td>
+                    <td>
+                       <asp:HyperLink ID="Division2LeagueHL" runat="server" BackColor="#6699FF" 
+                            BorderColor="Silver" BorderStyle="Solid" Font-Bold="True" ForeColor="Black" 
+                            NavigateUrl="~/Ladies_Skit/League Tables.aspx?League=DIVISION 2" 
+                            style="text-align: center; font-size: small" Width="60px" 
+                            Font-Names="Arial" Height="19px" >TABLE
+                        </asp:HyperLink>
+                    </td>
+                    <td>
+                        <asp:HyperLink ID="Division2StatsHL" runat="server" BackColor="#6699FF" 
+                            BorderColor="Silver" BorderStyle="Solid" Font-Bold="True" ForeColor="Black" 
+                            NavigateUrl="~/Ladies_Skit/Stats.aspx?League=DIVISION 2" 
+                            style="text-align: center; font-size: small" Width="60px" 
+                            Font-Names="Arial" Height="19px" >STATS
+                        </asp:HyperLink>
+                    </td>
+                    <td>
+                       <asp:HyperLink ID="Division3LeagueHL" runat="server" BackColor="#6699FF" 
+                            BorderColor="Silver" BorderStyle="Solid" Font-Bold="True" ForeColor="Black" 
+                            NavigateUrl="~/Ladies_Skit/League Tables.aspx?League=DIVISION 3"
+                            style="text-align: center; font-size: small" Width="60px"
+                            Font-Names="Arial" Height="19px" >TABLE
+                        </asp:HyperLink>
+                    </td>
+                    <td>
+                        <asp:HyperLink ID="Division3StatsHL" runat="server" BackColor="#6699FF" 
+                            BorderColor="Silver" BorderStyle="Solid" Font-Bold="True" ForeColor="Black" 
+                            NavigateUrl="~/Ladies_Skit/Stats.aspx?League=DIVISION 3"
+                            style="text-align: center; font-size: small" Width="60px" 
+                            Font-Names="Arial" Height="19px" >STATS
+                        </asp:HyperLink>
+                    </td>
+                 </tr>
+
+                </table>
+            <br />
+           <asp:GridView ID="gridTeams" runat="server" GridLines="None" CssClass="gv"
+                        BackColor="black" BorderStyle="None" AutoGenerateColumns="False" CellSpacing="3" 
+                        Font-Names="Arial" Font-Size="12px" Visible="false" Width="839px">
+                        <Columns>
+                            <asp:BoundField DataField="Division1Team" HeaderText="DIVISION 1">
+                            <HeaderStyle ForeColor="Tan" HorizontalAlign="Left" />
+                            <ItemStyle ForeColor="Cyan" HorizontalAlign="Left" Wrap="false" />
+                            </asp:BoundField>
+
+                            <asp:BoundField DataField="Division2Team" HeaderText="DIVISION 2">
+                            <HeaderStyle ForeColor="Tan" HorizontalAlign="Left" />
+                            <ItemStyle ForeColor="Cyan" HorizontalAlign="Left" Wrap="false" />
+                            </asp:BoundField>
+
+                            <asp:BoundField DataField="Division3Team" HeaderText="DIVISION 3">
+                            <HeaderStyle ForeColor="Tan" HorizontalAlign="Left" />
+                            <ItemStyle ForeColor="Cyan" HorizontalAlign="Left" Wrap="false" />
+                            </asp:BoundField>
+                        </Columns>
+                </asp:GridView>
+
+
+                <table id="AdminTable" cellpadding="1" cellspacing="0">
+                <tr>
+                     <td>
+                        <asp:Button ID="btnLogout"
+                            runat="server" BackColor="#666699" 
+                            BorderColor="Silver" BorderStyle="Solid" Font-Bold="True" ForeColor="Black" 
+                            style="text-align: center; font-size: small" Width="105px" 
+                            Font-Names="Arial" Height="39px" Text="LOGOUT" BorderWidth="3px" />
+                    </td>
+                    <td>
+                        <asp:HyperLink ID="CupResultsHL"
+                            runat="server" BackColor="#666699" 
+                            BorderColor="Silver" BorderStyle="Solid" Font-Bold="True" ForeColor="Black" 
+                            NavigateUrl="~/Ladies_Skit/Admin/Cup Results.aspx" 
+                            style="text-align: center; font-size: small" Width="128px" 
+                            Font-Names="Arial" Height="33px">CUP RESULTS
+                        </asp:HyperLink>
+                    </td>
+                    <td>
+                        <asp:HyperLink ID="DBExportHL"
+                            runat="server" BackColor="#666699" 
+                            BorderColor="Silver" BorderStyle="Solid" Font-Bold="True" ForeColor="Black" 
+                            NavigateUrl="~/Ladies_Skit/Admin/Database Export.aspx" 
+                            style="text-align: center; font-size: small" Width="128px" 
+                            Font-Names="Arial" Height="33px">DATABASE EXPORT
+                        </asp:HyperLink>
+                    </td>
+                    <td>
+                        <asp:HyperLink ID="DBImportHL"
+                            runat="server" BackColor="#666699" 
+                            BorderColor="Silver" BorderStyle="Solid" Font-Bold="True" ForeColor="Black" 
+                            NavigateUrl="~/Ladies_Skit/Admin/Database Import.aspx" 
+                            style="text-align: center; font-size: small" Width="128px" 
+                            Font-Names="Arial" Height="33px">DATABASE IMPORT
+                        </asp:HyperLink>
+                    </td>
+                    <td>
+                        <asp:HyperLink ID="RegiserHL"
+                            runat="server" BackColor="#666699" 
+                            BorderColor="Silver" BorderStyle="Solid" Font-Bold="True" ForeColor="Black" 
+                            NavigateUrl="~/Ladies_Skit/Admin/Register Players.aspx" 
+                            style="text-align: center; font-size: small" Width="128px" 
+                            Font-Names="Arial" Height="33px">REGISTER PLAYERS
+                        </asp:HyperLink>
+                    </td>
+                    <td>
+                        <asp:HyperLink ID="ActivityHL"
+                            runat="server" BackColor="#666699" 
+                            BorderColor="Silver" BorderStyle="Solid" Font-Bold="True" ForeColor="Black" 
+                            NavigateUrl="~/Ladies_Skit/Admin/Website Activity.aspx" 
+                            style="text-align: center; font-size: small" Width="122px" 
+                            Font-Names="Arial" Height="33px">WEBSITE ACTIVITY
+                        </asp:HyperLink>
+                    </td>
+                   <td>
+                        <asp:HyperLink ID="ClubsHL"
+                            runat="server" BackColor="#666699" 
+                            BorderColor="Silver" BorderStyle="Solid" Font-Bold="True" ForeColor="Black" 
+                            NavigateUrl="~/Clubs/Default.aspx?Week=0" 
+                            style="text-align: center; font-size: small" Width="133px" 
+                            Font-Names="Arial" Height="33px">CLUBS LEAGUE
+                        </asp:HyperLink>
+                    </td>
+                  <td>
+                        <asp:HyperLink ID="MensSkitHL"
+                            runat="server" BackColor="#666699" 
+                            BorderColor="Silver" BorderStyle="Solid" Font-Bold="True" ForeColor="Black" 
+                            NavigateUrl="~/Mens_Skit/Default.aspx?Week=0" 
+                            style="text-align: center; font-size: small" Width="133px" 
+                            Font-Names="Arial" Height="33px">MENS SKIT LEAGUE
+                        </asp:HyperLink>
+                    </td>
+                   <td>
+                        <asp:HyperLink ID="AllSkitHL"
+                            runat="server" BackColor="#666699" 
+                            BorderColor="Silver" BorderStyle="Solid" Font-Bold="True" ForeColor="Black" 
+                            NavigateUrl="~/All_Skit/Default.aspx?Week=0" 
+                            style="text-align: center; font-size: small" Width="133px" 
+                            Font-Names="Arial" Height="33px">ALL SKIT LEAGUE
+                        </asp:HyperLink>
+                    </td>
+
+                  </tr>
+                </table>
+            <br /> 
+         </div>
+            
+        <br />
+            
+
+
+        <div id="divContent" dir="ltr"> 
+
+            <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+            </asp:ContentPlaceHolder>
+        </div>
+    </div>
+
+
+    <div class="clearboth">
+    </div>
+
+   <div class="footer">
+        
+        <table class="style4">
+            <tr>
+                <td bgcolor="#1B1B1B" class="style5">                  
+                    <asp:Label ID="Label3" runat="server" BackColor="#1B1B1B" Font-Names="Arial" 
+                        ForeColor="White" Text="Chairwoman: "></asp:Label>
+                    <br />
+                   <asp:Label ID="Label4" runat="server" Text="Vice President: "></asp:Label>
+                    <br />
+                </td>
+                 <td bgcolor="#1B1B1B" align="center" class="style7">
+                   <asp:Label ID="Label5" runat="server" BackColor="#1B1B1B" Font-Names="Arial" 
+                        ForeColor="White" Text="Executive Committee"></asp:Label>
+                    <br />
+                    <asp:Label ID="Label6" runat="server" BackColor="#1B1B1B" Font-Names="Arial" 
+                        ForeColor="White" Text=""></asp:Label>
+                    <br />
+                </td>
+                <td dir="rtl" bgcolor="#1B1B1B" class="style6">
+                    <asp:Label ID="Label1" runat="server" BackColor="#1B1B1B" Font-Names="Arial" 
+                        ForeColor="White" Text="Treasurer: "></asp:Label>
+                    <br />
+                    <asp:Label ID="Label7" runat="server" BackColor="#1B1B1B" Font-Names="Arial" 
+                        ForeColor="White" Text="Secretary: "></asp:Label>
+                    <br />
+                    <asp:Label ID="Label2" runat="server" BackColor="#1B1B1B" Font-Names="Arial" 
+                        ForeColor="White" Text="Fixtures & Website: J. Williams"></asp:Label>
+                    <br />
+                </td>
+            </tr>
+        </table>
+
+
+    </div>
+     </form>
+</body>
+
+<script type="text/javascript">
+
+    function Navigate5() {
+        // this will make a new tab open
+        javascript: window.open("http://barry-vale-of-glamorgan.cylex-uk.co.uk/company/allform--uk--15562192.html");
+    }
+
+</script>
+
+</html>
+
+
