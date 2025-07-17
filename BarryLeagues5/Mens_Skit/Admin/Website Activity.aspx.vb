@@ -9,7 +9,7 @@ Partial Class Admin_Website_Activity
         'Call objGlobals.open_connection("mens_skit")
         objGlobals.CurrentUser = "mens_skit_user"
         objGlobals.CurrentSchema = "mens_skit."
-        SqlDataSource1.ConnectionString = objGlobals.getSQLConnectionString
+        SqlDataSource1.ConnectionString = Replace(objGlobals.getSQLConnectionString, "Provider", "Data Source")
         If Not Request.Cookies("lastVisit") Is Nothing Then
             objGlobals.AdminLogin = True
         Else
@@ -31,7 +31,7 @@ Partial Class Admin_Website_Activity
             End If
         End If
 
-        SqlDataSourcemy_ip_addresses.ConnectionString = objGlobals.getSQLConnectionString
+        SqlDataSourcemy_ip_addresses.ConnectionString = Replace(objGlobals.getSQLConnectionString, "Provider", "Data Source")
         lblIPExists.Visible = False
         lblNoIP.Visible = False
     End Sub

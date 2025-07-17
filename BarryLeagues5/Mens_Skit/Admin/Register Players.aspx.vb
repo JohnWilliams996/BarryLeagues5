@@ -50,10 +50,10 @@ Partial Class Register_Players
             Call objGlobals.store_page("ATTACK FROM " & Request.Url.OriginalString, objGlobals.AdminLogin)
             Exit Sub
         End If
-        SqlDataSourceDivision1.ConnectionString = objGlobals.getSQLConnectionString
-        SqlDataSourceDivision2.ConnectionString = objGlobals.getSQLConnectionString
-        SqlDataSourceDivision3.ConnectionString = objGlobals.getSQLConnectionString
-        SqlDataSourceDivision4.ConnectionString = objGlobals.getSQLConnectionString
+        SqlDataSourceDivision1.ConnectionString = Replace(objGlobals.getSQLConnectionString, "Provider", "Data Source")
+        SqlDataSourceDivision2.ConnectionString = Replace(objGlobals.getSQLConnectionString, "Provider", "Data Source")
+        SqlDataSourceDivision3.ConnectionString = Replace(objGlobals.getSQLConnectionString, "Provider", "Data Source")
+        SqlDataSourceDivision4.ConnectionString = Replace(objGlobals.getSQLConnectionString, "Provider", "Data Source")
         If Not IsPostBack Then
             Call objGlobals.store_page(Request.Url.OriginalString, objGlobals.AdminLogin)
             Call load_add_leagues()

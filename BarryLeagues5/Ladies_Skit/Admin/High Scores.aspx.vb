@@ -15,7 +15,7 @@ Partial Class Admin_High_Scores
         'Call objGlobals.open_connection("ladies_skit")
         objGlobals.CurrentUser = "ladies_skit_user"
         objGlobals.CurrentSchema = "ladies_skit."
-        SqlDataSource1.ConnectionString = objGlobals.getSQLConnectionString
+        SqlDataSource1.ConnectionString = Replace(objGlobals.getSQLConnectionString, "Provider", "Data Source")
         If Not Request.Cookies("lastVisit") Is Nothing Then
             objGlobals.AdminLogin = True
         Else

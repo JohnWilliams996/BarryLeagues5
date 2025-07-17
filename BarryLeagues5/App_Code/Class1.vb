@@ -289,11 +289,13 @@ Public Class Globals
         SQLConnectionString = getWebConnectionString()
         Return SQLConnectionString
     End Function
+
     Private Function getLocalConnectionString() As String
         'Home (local) connection strings   
         Dim LocalDBConnection As New OleDbConnection(ConfigurationManager.ConnectionStrings("LOCAL_ConnectionString").ConnectionString)
         Return LocalDBConnection.ConnectionString
     End Function
+
     Private Function getWebConnectionString() As String
         'setup Web (Live) and Home (local) connection strings   
         Dim WEBConnection As New OleDbConnection(ConfigurationManager.ConnectionStrings("WEB_ConnectionString").ConnectionString)

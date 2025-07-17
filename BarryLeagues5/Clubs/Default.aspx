@@ -382,7 +382,7 @@
                         ForeColor="#E4BB18" Font-Size="16px"> </asp:Label>
                     <br />
                     <br />
-                   <asp:Label ID="Label33" runat="server" ForeColor="#E4BB18" 
+<%--                   <asp:Label ID="Label33" runat="server" ForeColor="#E4BB18" 
                         Text="A.G.M." BorderWidth="1px"
                         Width="185px" Font-Names="Arial" BackColor="#1B1B1B" Font-Size="20px"></asp:Label>
                     <br />
@@ -417,7 +417,7 @@
                         ForeColor="#E4BB18" Font-Size="16px" Width = "300px" Text="Tickets (£5) available at the Football Club and RIM Motors and on the door on the night (subject to availability).">
                     </asp:Label>
                     <br />
-                    <br />
+                    <br />--%>
                     <br />
                     <br />
                     <br />
