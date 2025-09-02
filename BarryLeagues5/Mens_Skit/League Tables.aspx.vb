@@ -129,11 +129,14 @@ Partial Class League_Tables
             End With
         End While
 
-        dt.Rows.Add("Competitions")
-        'dt.Rows.Add("ALAN ROSSER CUP")
-        dt.Rows.Add("ALLFORM CUP")
-        dt.Rows.Add("HOLME TOWERS CUP (4 PIN)")
-        'dt.Rows.Add("GARY MITCHELL CUP")
+        strSQL = "EXEC mens_skit.sp_get_options_AR"
+        myDataReader = objGlobals.SQLSelect(strSQL)
+
+        While myDataReader.Read()
+            dr = dt.NewRow
+            dr("Long Name") = myDataReader.Item("Comp")
+            dt.Rows.Add(dr)
+        End While
 
         gRow = 0
         inGrid.DataSource = dt
@@ -527,7 +530,7 @@ Partial Class League_Tables
                 hLink.NavigateUrl = "~/Mens_Skit/League Tables.aspx?League=" & objGlobals.LeagueSelected
                 e.Row.Cells(0).ColumnSpan = 2
                 e.Row.Cells(1).Visible = False
-            ElseIf dt.Rows(gRow)(0).ToString = "ALLFORM CUP" Or dt.Rows(gRow)(0).ToString = "HOLME TOWERS CUP (4 PIN)" Or dt.Rows(gRow)(0).ToString = "GARY MITCHELL CUP" Then
+            ElseIf dt.Rows(gRow)(0).ToString = "ALLFORM CUP" Or dt.Rows(gRow)(0).ToString.StartsWith("HOLME TOWERS CUP") Or dt.Rows(gRow)(0).ToString = "GARY MITCHELL CUP" Then
                 hLink.NavigateUrl = "~/Mens_Skit/Cup Fixtures List.aspx?Comp=" & dt.Rows(gRow)(0).ToString
                 e.Row.Cells(0).ColumnSpan = 2
                 e.Row.Cells(1).Visible = False

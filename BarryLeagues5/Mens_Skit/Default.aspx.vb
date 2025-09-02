@@ -119,7 +119,7 @@ Partial Class Default1
 
             'Call load_current_comp("Alan Rosser Cup", lblAlanRosser, lblAlanRosserDate, hlAlanRosser)
             Call load_current_comp("Allform Cup", lblAllform, lblAllformDate, hlAllform)
-            Call load_current_comp("Holme Towers Cup (4 Pin)", lblHolmeTowers, lblHolmeTowersDate, hlHolmeTowers)
+            Call load_current_comp("Holme Towers Cup (Nomination)", lblHolmeTowers, lblHolmeTowersDate, hlHolmeTowers)
             'Call load_current_comp("Gary Mitchell Cup", lblGaryMitchell, lblGaryMitchellDate, hlGaryMitchell)
 
             '4.8.14 - Add latest stats to homepage
@@ -240,10 +240,8 @@ Partial Class Default1
 
     Sub load_stats()
         Dim strSQL As String
-        Dim myDataReader As oledbdatareader
-        Dim UKDateTime As Date = objGlobals.LondonDate(DateTime.UtcNow)
-        Dim UKDate As String = UKDateTime.ToShortDateString
-        strSQL = "EXEC mens_skit.sp_get_stats '" + UKDate + "'"
+        Dim myDataReader As OleDbDataReader
+        strSQL = "EXEC mens_skit.sp_get_stats '" + objGlobals.current_season + "'"
         myDataReader = objGlobals.SQLSelect(strSQL)
         While myDataReader.Read()
             txtStatsToday.Text = myDataReader.Item("today").ToString
@@ -466,7 +464,12 @@ Partial Class Default1
     Sub show_current_week_text(ByVal inWeek As Integer)
         If inWeek >= 0 AndAlso inWeek - 1 < ddWeeks.Items.Count Then
             ddWeeks.BorderStyle = BorderStyle.Solid
-            ddWeeks.Text = ddWeeks.Items(inWeek - 1).Text 'show the current week
+            'show the current week
+            If inWeek > 0 Then
+                ddWeeks.Text = ddWeeks.Items(inWeek - 1).Text
+            Else
+                ddWeeks.Text = ddWeeks.Items(0).Text
+            End If
             ddWeeks.BackColor = DarkBlue
         End If
         btnOutstanding.BackColor = Black
@@ -1018,7 +1021,7 @@ Partial Class Default1
                 '23/11/18 - add link to Holme Towers Cup
                 If Left(dt.Rows(gRow)(0).ToString, 5) = "HOLME" Then
                     Dim hLink4 As New HyperLink
-                    hLink4.NavigateUrl = "~/Mens_Skit/Cup Fixtures List.aspx?Comp=HOLME TOWERS CUP (4 PIN)"
+                    hLink4.NavigateUrl = "~/Mens_Skit/Cup Fixtures List.aspx?Comp=HOLME TOWERS CUP (NOMINATION)"
                     hLink4.Text = e.Row.Cells(0).Text
                     hLink4.ForeColor = System.Drawing.Color.FromArgb(&H66, &H99, &HFF)
                     e.Row.Cells(0).Controls.Add(hLink4)

@@ -687,7 +687,12 @@ Partial Class Default1
         If inWeek >= 0 AndAlso inWeek - 1 < ddWeeks.Items.Count Then
             ddWeeks.BorderStyle = BorderStyle.Solid
             btnOutstanding.BorderStyle = BorderStyle.None
-            ddWeeks.Text = ddWeeks.Items(inWeek - 1).Text 'show the current week
+            'show the current week
+            If inWeek > 0 Then
+                ddWeeks.Text = ddWeeks.Items(inWeek - 1).Text
+            Else
+                ddWeeks.Text = ddWeeks.Items(0).Text
+            End If
             ddWeeks.BackColor = DarkBlue
         End If
         btnOutstanding.BackColor = Black

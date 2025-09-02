@@ -318,7 +318,7 @@
                     <br />
                     <br />
                     <br />
-                   <asp:Label ID="Label0" runat="server" BackColor="#1B1B1B" Font-Names="Arial"  Font-Underline = "true"
+                   <%--<asp:Label ID="Label0" runat="server" BackColor="#1B1B1B" Font-Names="Arial"  Font-Underline = "true"
                         ForeColor="#E4BB18" Font-Size="20px"  Text="End of Season Events"> </asp:Label>
                   
                     <br />
@@ -355,7 +355,7 @@
                    <asp:Label ID="Label18" runat="server" BackColor="#1B1B1B" Font-Names="Arial" 
                         ForeColor="#E4BB18" Font-Size="14px" Text="19:45 - Secretaries night"> </asp:Label>
                    <br />                   
-                   <br />
+                   <br />--%>
                     <br />
                     <br />
                     <asp:Button ID="btnRegistration" runat="server" BackColor="#1B1B1B"

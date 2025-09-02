@@ -56,6 +56,10 @@
                     ForeColor="Red" Font-Size="18px" Width="281px" style="text-align:center" 
                     BackColor="#1B1B1B">
                 </asp:Label>
+               <asp:Label ID="lblNeutral" runat="server" Text="(N) = NEUTRAL FIXTURE" Font-Names="Arial" 
+                    ForeColor="LightGreen" Font-Size="18px" Width="281px" style="text-align:center" 
+                    BackColor="#1B1B1B">
+                </asp:Label>
           </td>
           <td>
                 <asp:Label ID="lblLeague" runat="server" Text="LEAGUE" Font-Names="Arial" 

@@ -166,10 +166,8 @@ Partial Class [Default]
 
     Sub load_stats()
         Dim strSQL As String
-        Dim myDataReader As oledbdatareader
-        Dim UKDateTime As Date = objGlobals.LondonDate(DateTime.UtcNow)
-        Dim UKDate As String = UKDateTime.ToShortDateString
-        strSQL = "EXEC clubs.sp_get_stats '" + UKDate + "'"
+        Dim myDataReader As OleDbDataReader
+        strSQL = "EXEC clubs.sp_get_stats '" + objGlobals.current_season + "'"
         myDataReader = objGlobals.SQLSelect(strSQL)
         While myDataReader.Read()
             txtStatsToday.Text = myDataReader.Item("today").ToString
@@ -469,10 +467,15 @@ Partial Class [Default]
         If inWeek <> -1 AndAlso inWeek - 1 < ddWeeks.Items.Count Then
             ddWeeks.BorderStyle = BorderStyle.Solid
             btnOutstanding.BorderStyle = BorderStyle.None
-            ddWeeks.Text = ddWeeks.Items(inWeek - 1).Text 'show the current week
+            'show the current week
+            If inWeek > 0 Then
+                ddWeeks.Text = ddWeeks.Items(inWeek - 1).Text
+            Else
+                ddWeeks.Text = ddWeeks.Items(0).Text
+            End If
             ddWeeks.BackColor = DarkBlue
-        End If
-        btnOutstanding.BackColor = Black
+            End If
+            btnOutstanding.BackColor = Black
 
         btn1.BackColor = Black : btn2.BackColor = Black : btn3.BackColor = Black : btn4.BackColor = Black : btn5.BackColor = Black : btn6.BackColor = Black : btn7.BackColor = Black : btn8.BackColor = Black : btn9.BackColor = Black : btn10.BackColor = Black
         btn11.BackColor = Black : btn12.BackColor = Black : btn13.BackColor = Black : btn14.BackColor = Black : btn15.BackColor = Black : btn16.BackColor = Black : btn17.BackColor = Black : btn18.BackColor = Black : btn19.BackColor = Black : btn20.BackColor = Black
@@ -729,7 +732,7 @@ Partial Class [Default]
                 dr("Status") = myDataReader.Item("status")
                 dr("Week Number") = myDataReader.Item("week_number")
                 dr("Fixture Type") = myDataReader.Item("fixture_type")
-                dr("Venue") = IIf(myDataReader.Item("fixture_neutral") = 0, myDataReader.Item("venue"), myDataReader.Item("venue") + " (N)")
+                dr("Venue") = IIf(Not (myDataReader.Item("fixture_neutral")), myDataReader.Item("venue"), myDataReader.Item("venue") + " (N)")
                 gRow = gRow + 1
                 dt.Rows.Add(dr)
             End With

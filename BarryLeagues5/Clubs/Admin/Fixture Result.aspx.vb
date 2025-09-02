@@ -738,8 +738,7 @@ Partial Class Admin_Fixture_Result
         strSQL = "SELECT player FROM clubs.vw_players WHERE league = '" & FixtureLeague & "' AND team = '" & FixtureHomeTeam & "' AND player NOT LIKE 'A N OTHER%' "
         myDataReader = objGlobals.SQLSelect(strSQL)
         While myDataReader.Read()
-            strSQL = "EXEC " & inStoredProcedure & " '" & tempSeason & "','" & FixtureLeague & "','" & FixtureHomeTeam & "','" & myDataReader.Item("player") & "'"
-            If inStoredProcedure.ToUpper.Contains("SKITTLES") Then strSQL &= "," & CompID
+            strSQL = "EXEC " & inStoredProcedure & " '" & tempSeason & "','" & FixtureLeague & "','" & FixtureHomeTeam & "','" & myDataReader.Item("player") & "'," & CompID.ToString
             myDataReader2 = objGlobals.SQLSelect(strSQL)
         End While
         objGlobals.close_connection()
@@ -747,8 +746,7 @@ Partial Class Admin_Fixture_Result
         strSQL = "SELECT player FROM clubs.vw_players WHERE league = '" & FixtureLeague & "' AND team = '" & FixtureAwayTeam & "' AND player NOT LIKE 'A N OTHER%' "
         myDataReader = objGlobals.SQLSelect(strSQL)
         While myDataReader.Read()
-            strSQL = "EXEC " & inStoredProcedure & " '" & tempSeason & "','" & FixtureLeague & "','" & FixtureAwayTeam & "','" & myDataReader.Item("player") & "'"
-            If inStoredProcedure.ToUpper.Contains("SKITTLES") Then strSQL &= "," & CompID
+            strSQL = "EXEC " & inStoredProcedure & " '" & tempSeason & "','" & FixtureLeague & "','" & FixtureAwayTeam & "','" & myDataReader.Item("player") & "'," & CompID.ToString
             myDataReader2 = objGlobals.SQLSelect(strSQL)
         End While
         objGlobals.close_connection()

@@ -334,12 +334,15 @@ Partial Class Team_Fixtures
         End While
         Select Case Left(objGlobals.LeagueSelected, 4)
             Case "CRIB"
+                lblNeutral.Visible = False
                 lblTeam.ForeColor = Yellow
                 lblLeague.ForeColor = Yellow
             Case "SNOO"
+                lblNeutral.Visible = False
                 lblTeam.ForeColor = LightGreen
                 lblLeague.ForeColor = LightGreen
             Case "SKIT"
+                lblNeutral.Visible = True
                 lblTeam.ForeColor = LightBlue
                 lblLeague.ForeColor = LightBlue
         End Select
@@ -416,9 +419,9 @@ Partial Class Team_Fixtures
                     Else
                         dr("Home Team Name") = myDataReader.Item("away_team_name")
                         If myDataReader.Item("venue") = home_venue Then
-                            dr("Venue") = IIf(myDataReader.Item("fixture_neutral") = 0, "HOME", myDataReader.Item("venue") + " (N)")
+                            dr("Venue") = IIf(Not (myDataReader.Item("fixture_neutral")), "HOME", myDataReader.Item("venue") + " (N)")
                         Else
-                            dr("Venue") = IIf(myDataReader.Item("fixture_neutral") = 0, myDataReader.Item("venue"), myDataReader.Item("venue") + " (N)")
+                            dr("Venue") = IIf(Not (myDataReader.Item("fixture_neutral")), myDataReader.Item("venue"), myDataReader.Item("venue") + " (N)")
                         End If
                         If myDataReader.Item("home_result") = "WON" Or myDataReader.Item("home_result") = "LOST" Then
                             dr("Home Result") = myDataReader.Item("home_result")
@@ -452,6 +455,7 @@ Partial Class Team_Fixtures
                 Case Else
                     dr("Home Team Name") = myDataReader.Item("home_team_name")
                     dr("Venue") = myDataReader.Item("venue")
+                    If myDataReader.Item("fixture_neutral") Then dr("Venue") += " (N)"
                     If myDataReader.Item("home_result") = "WON" Or myDataReader.Item("home_result") = "LOST" Then
                         dr("Home Result") = myDataReader.Item("home_result")
                     ElseIf myDataReader.Item("home_result") = "versus" Then

@@ -78,16 +78,16 @@ Public Class Globals
             End If
 
             If inAdmin Then
-                strSQL = strSQL & ",'ADMIN')"
+                strSQL = strSQL & ",'ADMIN',(SELECT MIN(week_number) from dbo.calendar WHERE fixture_calendar >= GETUTCDATE()),'" & get_current_season() & "')"
             Else
-                strSQL = strSQL & ",null)"
+                strSQL = strSQL & ",null,(SELECT MIN(week_number) from dbo.calendar WHERE fixture_calendar >= GETUTCDATE()),'" & get_current_season() & "')"
             End If
 
             myDataReader = SQLSelect(strSQL)
             close_connection()
 
             If InStr(UCase(inWebPage), "DEFAULT") > 0 And inWebPage <> "GoogleBot Crawler" Then
-                store_stat_counter()
+                'store_stat_counter() - removed 19/07/25, use Page_Visits instead
             End If
         End If
     End Sub
@@ -281,12 +281,13 @@ Public Class Globals
             Case 3
                 'web (live) connection string
                 SQLConnectionString = getWebConnectionString()
-            Case 1
+            Case 0
                 'home connection string
                 SQLConnectionString = getLocalConnectionString()
         End Select
         'temp to point to LIVE DB
-        SQLConnectionString = getWebConnectionString()
+        'SQLConnectionString = getWebConnectionString()
+
         Return SQLConnectionString
     End Function
 
